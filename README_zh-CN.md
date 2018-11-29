@@ -544,6 +544,7 @@ const Router = {
 &ensp;&ensp;checkou后进入demo目录
 ```bash
 $ npm install
+$ npm run devDll
 $ npm start
 ```
 &ensp;&ensp;在浏览器上输入localhost:8000即可访问到demo的主页面
@@ -552,6 +553,7 @@ $ npm start
 &ensp;&ensp;Note是一个使用CtMobile-React来编写的一个便签程序,checkout后进入note
 ```bash
 $ npm install
+$ npm run devDll
 $ npm start
 ```
 在浏览器上输入localhost:8001即可访问到demo的主页面。

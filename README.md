@@ -543,6 +543,7 @@ const Router = {
 &ensp;&ensp;Checkout and enter the home directory
 ```bash
 $ npm install
+$ npm run devDll
 $ npm start
 ```
 &ensp;&ensp;Enter localhost:8000 in the browser to access the main page of the demo.
@@ -551,6 +552,7 @@ $ npm start
 &ensp;&ensp;Note is a note-taking program written using CtMobile-React, checkout and enter the note
 ```bash
 $ npm install
+$ npm run devDll
 $ npm start
 ```
 Enter localhost:8001 on your browser to access the main page of the demo.
