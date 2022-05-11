@@ -1,16 +1,16 @@
-@import "../../../node_modules/font-awesome/less/font-awesome.less";
-@import "../../../node_modules/@ctmobile/react/lib/index.css";
+@import '../../../node_modules/font-awesome/less/font-awesome.less';
+@import '../../../node_modules/@ctmobile/react/lib/index.css';
 //@import "../../ctmobile-react/index.less";
 
 header,
 footer {
   position: absolute;
-  left: 0;
   right: 0;
+  left: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   height: 3rem;
   line-height: 3rem;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
 }
 
 header {
@@ -23,29 +23,29 @@ footer {
 
 .ct-content {
   position: absolute !important;
-  left: 0 !important;
-  right: 0 !important;
   /*自定义*/
   top: 4.7rem;
+  right: 0 !important;
   /*自定义*/
   bottom: 3rem;
+  left: 0 !important;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   overflow-x: hidden !important;
   overflow-y: auto;
   overflow-scrolling: touch !important;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
 }
 
 /*工具栏标题*/
 .ct-header-title {
   margin: 0 4rem /*!important*/;
-  text-align: center !important;
   overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  white-space: nowrap !important;
-  word-break: break-all !important;
-  font-size: .9rem;
+  font-size: 0.9rem;
   line-height: 3rem;
+  white-space: nowrap !important;
+  text-align: center !important;
+  text-overflow: ellipsis !important;
+  word-break: break-all !important;
 }
 
 /*工具栏按钮*/
@@ -78,14 +78,14 @@ footer {
 
 /*头部标题*/
 .ct-header-title {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
 }
 
 /*返回按钮*/
 .ct-back-icon {
   float: left;
   background: url(../images/iconfont-fanhui.png) no-repeat center !important;
-  background-size: .8rem !important;
+  background-size: 0.8rem !important;
 }
 
 /*用户按钮*/
@@ -175,26 +175,26 @@ footer {
 div[data-ct-data-role='page'] {
   > .ct-content {
     > ul {
-      list-style: none;
-      padding: 0;
       margin: 0;
+      padding: 0;
+      list-style: none;
       > li {
         padding: 0 10px;
         > a {
           display: flex;
-          justify-content: space-between;
           align-items: center;
-          color: #000;
+          justify-content: space-between;
           padding: 20px 25px;
+          color: #000;
           word-break: break-word;
         }
 
         > a.link {
           &:after {
-            content: '\f054';
-            font-family: FontAwesome;
             color: #ccc;
             font-size: 20px;
+            font-family: FontAwesome;
+            content: '\f054';
           }
         }
       }

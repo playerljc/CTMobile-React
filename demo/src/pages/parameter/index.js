@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CtMobile from "@ctmobile/react";
+import CtMobile from '@ctmobile/react';
 
-const {Link, Back} = CtMobile;
+const { Link, Back } = CtMobile;
 
 export default class extends CtMobile.Page.WrappedPage {
   constructor(props) {
@@ -113,16 +113,27 @@ export default class extends CtMobile.Page.WrappedPage {
     return (
       <React.Fragment>
         <header>
-          <Back className="ct-back-icon"/>
+          <Back className="ct-back-icon" />
           <p className="ct-header-title">parameter</p>
         </header>
-        <div className="ct-content" style={{top: '3rem', bottom: 0}}>
+        <div className="ct-content" style={{ top: '3rem', bottom: 0 }}>
           <ul>
-            <li><Link className="link" pageId="parameter_get" parameter="&a=1&b=2">parameter_get</Link></li>
-            <li><a className="link" onClick={() => {
-              this.props.parent.setRequest(this.props.parent.getPageId(),{a:1,b:2});
-              this.props.ctmobile.startPage("#parameter_arm?pageId=parameter_arm");
-            }}>parameter_arm</a></li>
+            <li>
+              <Link className="link" pageId="parameter_get" parameter="&a=1&b=2">
+                parameter_get
+              </Link>
+            </li>
+            <li>
+              <a
+                className="link"
+                onClick={() => {
+                  this.props.parent.setRequest(this.props.parent.getPageId(), { a: 1, b: 2 });
+                  this.props.ctmobile.startPage('#parameter_arm?pageId=parameter_arm');
+                }}
+              >
+                parameter_arm
+              </a>
+            </li>
           </ul>
         </div>
       </React.Fragment>

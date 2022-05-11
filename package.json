@@ -1,10 +1,11 @@
 {
   "name": "@ctmobile/react",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "CTMobile的React实现",
   "main": "lib/index.js",
   "scripts": {
     "build": "rimraf lib && babel src -d lib/src --ignore __tests__ && gulp",
+    "generatorchangelog": "bd changelog/CHANGELOG.html",
     "test": "echo \"Error: no test specified\" && exit 1",
     "doc": "jsdoc src README.md -d doc -u doc/tutorials"
   },
@@ -45,7 +46,6 @@
     "@babel/runtime": "^7.1.5",
     "autoprefixer": "^8.5.0",
     "babel-loader": "^7.1.4",
-    "eslint": "^5.8.0",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
     "gulp-concat": "^2.6.1",
@@ -61,6 +61,15 @@
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "prettier": "^2.5.1",
+    "eslint": "^8.5.0",
+    "eslint-plugin-comments": "^1.0.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jest": "^24.5.2",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-unicorn": "^36.0.0",
+    "@umijs/fabric": "^2.8.1"
   }
 }

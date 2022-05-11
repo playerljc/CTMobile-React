@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CtMobile from "@ctmobile/react";
+import CtMobile from '@ctmobile/react';
 
-const {Link, Back} = CtMobile;
+const { Link, Back } = CtMobile;
 
 export default class extends CtMobile.Page.WrappedPage {
   constructor(props) {
@@ -111,21 +111,25 @@ export default class extends CtMobile.Page.WrappedPage {
 
   render() {
     return (
-			<React.Fragment>
-				<header>
-					<Back className="ct-back-icon"/>
-					<p className="ct-header-title">about</p>
-				</header>
-				<div className="ct-content" style={{top: '3rem', bottom: 0}}>
-					<ul>
-						{/*<li><a onClick={() => {*/}
-              {/*this.props.parent.setResult('about', {a: 1, b: 2});*/}
-              {/*this.props.parent.over();*/}
-						{/*}}>关闭</a></li>*/}
-            <li><Link className="link" pageId="info">info</Link></li>
-					</ul>
-				</div>
-			</React.Fragment>
+      <React.Fragment>
+        <header>
+          <Back className="ct-back-icon" />
+          <p className="ct-header-title">about</p>
+        </header>
+        <div className="ct-content" style={{ top: '3rem', bottom: 0 }}>
+          <ul>
+            {/*<li><a onClick={() => {*/}
+            {/*this.props.parent.setResult('about', {a: 1, b: 2});*/}
+            {/*this.props.parent.over();*/}
+            {/*}}>关闭</a></li>*/}
+            <li>
+              <Link className="link" pageId="info">
+                info
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </React.Fragment>
     );
   }
 }

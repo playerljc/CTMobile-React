@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CtMobile from "@ctmobile/react";
+import CtMobile from '@ctmobile/react';
 
-const {Link, Back} = CtMobile;
+const { Link, Back } = CtMobile;
 
 export default class extends CtMobile.Page.WrappedPage {
   constructor(props) {
@@ -19,12 +19,15 @@ export default class extends CtMobile.Page.WrappedPage {
     this.onRegisterReceiver = this.onRegisterReceiver.bind(this);
 
     // 注册borasdcast
-    this.props.ctmobile.registerReceiver({
-      el: this.props.parent.getPageDOM(),
-      action: 'borasdcast_order_api',
-      priority: 2,
-      categorys: []
-    }, this.onRegisterReceiver);
+    this.props.ctmobile.registerReceiver(
+      {
+        el: this.props.parent.getPageDOM(),
+        action: 'borasdcast_order_api',
+        priority: 2,
+        categorys: [],
+      },
+      this.onRegisterReceiver,
+    );
   }
 
   onRegisterReceiver(intent, nextOpt) {
@@ -129,21 +132,28 @@ export default class extends CtMobile.Page.WrappedPage {
     return (
       <React.Fragment>
         <header>
-          <Back className="ct-back-icon"/>
+          <Back className="ct-back-icon" />
           <p className="ct-header-title">borasdcast_order_api_page3</p>
         </header>
-        <div className="ct-content" style={{top: '3rem', bottom: 0}}>
+        <div className="ct-content" style={{ top: '3rem', bottom: 0 }}>
           <ul>
-            <li><a className="link" onClick={() => {
-              this.props.ctmobile.sendOrderedBroadcast({
-                action: 'borasdcast_order_api',
-                categorys: [],
-                bundle: {
-                  a: 1,
-                  b: 2
-                }
-              });
-            }}>通知</a></li>
+            <li>
+              <a
+                className="link"
+                onClick={() => {
+                  this.props.ctmobile.sendOrderedBroadcast({
+                    action: 'borasdcast_order_api',
+                    categorys: [],
+                    bundle: {
+                      a: 1,
+                      b: 2,
+                    },
+                  });
+                }}
+              >
+                通知
+              </a>
+            </li>
           </ul>
         </div>
       </React.Fragment>

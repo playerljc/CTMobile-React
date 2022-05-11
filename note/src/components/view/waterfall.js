@@ -10,21 +10,26 @@ import './waterfall.less';
  */
 export default class extends React.Component {
   renderWaterfall(index) {
-    const {data} = this.props;
+    const { data } = this.props;
     let arr = [];
     for (let i = index; i < data.length; i = i + 2) {
       const item = data[i];
       arr.push(
-        <li key={i} onClick={() => {
-          this.props.page.props.parent.setRequest('update', item);
-          this.props.page.props.ctmobile.startPage(`#saveorupdate?pageId=saveorupdate&id=${item.id}`);
-        }}>
+        <li
+          key={i}
+          onClick={() => {
+            this.props.page.props.parent.setRequest('update', item);
+            this.props.page.props.ctmobile.startPage(
+              `#saveorupdate?pageId=saveorupdate&id=${item.id}`,
+            );
+          }}
+        >
           <a>
             <div className="title">{item.title}</div>
             <div className="info">{item.info}</div>
             <div className="createTime">{item.createTime}</div>
           </a>
-        </li>
+        </li>,
       );
     }
     return arr;

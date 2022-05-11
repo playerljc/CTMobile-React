@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CtMobile from "@ctmobile/react";
+import CtMobile from '@ctmobile/react';
 
-const {Link, Back} = CtMobile;
+const { Link, Back } = CtMobile;
 
 export default class extends CtMobile.Page.WrappedPage {
   constructor(props) {
@@ -16,7 +16,7 @@ export default class extends CtMobile.Page.WrappedPage {
    * @param {Object} e
    */
   pageCreate(e) {
-    this.props.parent.setRequest(this.props.parent.getPageId(),{});
+    this.props.parent.setRequest(this.props.parent.getPageId(), {});
   }
 
   /***
@@ -113,7 +113,7 @@ export default class extends CtMobile.Page.WrappedPage {
    * @override
    */
   pageResult(e, resultCode, bundle) {
-    console.log("resultCode", resultCode, "bundle", JSON.stringify(bundle));
+    console.log('resultCode', resultCode, 'bundle', JSON.stringify(bundle));
     alert(`resultCode:${resultCode}\r\nbundle:${JSON.stringify(bundle)}`);
   }
 
@@ -121,12 +121,16 @@ export default class extends CtMobile.Page.WrappedPage {
     return (
       <React.Fragment>
         <header>
-          <Back className="ct-back-icon"/>
+          <Back className="ct-back-icon" />
           <p className="ct-header-title">startmode_result_moretoone_page2</p>
         </header>
-        <div className="ct-content" style={{top: '3rem', bottom: 0}}>
+        <div className="ct-content" style={{ top: '3rem', bottom: 0 }}>
           <ul>
-            <li><Link className="link" pageId="startmode_result_opendialog">startmode_result_opendialog</Link></li>
+            <li>
+              <Link className="link" pageId="startmode_result_opendialog">
+                startmode_result_opendialog
+              </Link>
+            </li>
           </ul>
         </div>
       </React.Fragment>

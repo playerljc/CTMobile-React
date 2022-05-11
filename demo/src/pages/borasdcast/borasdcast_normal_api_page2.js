@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CtMobile from "@ctmobile/react";
+import CtMobile from '@ctmobile/react';
 
-const {Link, Back} = CtMobile;
+const { Link, Back } = CtMobile;
 
 export default class extends CtMobile.Page.WrappedPage {
   constructor(props) {
@@ -19,12 +19,15 @@ export default class extends CtMobile.Page.WrappedPage {
     this.onRegisterReceiver = this.onRegisterReceiver.bind(this);
 
     // 注册borasdcast
-    this.props.ctmobile.registerReceiver({
-      el: this.props.parent.getPageDOM(),
-      action: 'borasdcast_normal_api',
-      priority: 1,
-      categorys: []
-    }, this.onRegisterReceiver);
+    this.props.ctmobile.registerReceiver(
+      {
+        el: this.props.parent.getPageDOM(),
+        action: 'borasdcast_normal_api',
+        priority: 1,
+        categorys: [],
+      },
+      this.onRegisterReceiver,
+    );
   }
 
   /***
@@ -125,30 +128,36 @@ export default class extends CtMobile.Page.WrappedPage {
     return (
       <React.Fragment>
         <header>
-          <Back className="ct-back-icon"/>
+          <Back className="ct-back-icon" />
           <p className="ct-header-title">borasdcast_normal_api_page2</p>
         </header>
-        <div className="ct-content" style={{top: '3rem', bottom: 0}}>
+        <div className="ct-content" style={{ top: '3rem', bottom: 0 }}>
           <ul>
-            <li><Link className="link" pageId="borasdcast_normal_api_page1">borasdcast_normal_api_page1</Link></li>
-            <li><a className="link" onClick={() => {
-              this.props.ctmobile.sendBroadcast({
-                action: 'borasdcast_normal_api',
-                categorys: [],
-                bundle: {
-                  a: 3,
-                  b: 4
-                }
-              });
-            }}>通知</a></li>
+            <li>
+              <Link className="link" pageId="borasdcast_normal_api_page1">
+                borasdcast_normal_api_page1
+              </Link>
+            </li>
+            <li>
+              <a
+                className="link"
+                onClick={() => {
+                  this.props.ctmobile.sendBroadcast({
+                    action: 'borasdcast_normal_api',
+                    categorys: [],
+                    bundle: {
+                      a: 3,
+                      b: 4,
+                    },
+                  });
+                }}
+              >
+                通知
+              </a>
+            </li>
           </ul>
         </div>
       </React.Fragment>
     );
   }
 }
-
-
-
-
-

@@ -6,9 +6,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import $ from "jquery";
-import Constant from "./Constant";
-import {Provider} from "./GlobalContext";
+import $ from 'jquery';
+import Constant from './Constant';
+import { Provider } from './GlobalContext';
 
 /**
  * 对数组进行遍历
@@ -45,7 +45,7 @@ function createPageDOM() {
   /***
    * 设置page真实的id
    */
-  this._pDom.setAttribute("id", this.pageId);
+  this._pDom.setAttribute('id', this.pageId);
 
   /***
    * 改变page中所有包含id的属性的值都加入id前缀(根据情况进行扩展)
@@ -53,17 +53,17 @@ function createPageDOM() {
    * input的list属性
    * datalist的id属性
    */
-  forEach(this._pDom.querySelectorAll("[id]"), function () {
-    this.setAttribute("id", self.id + this.getAttribute("id"));
+  forEach(this._pDom.querySelectorAll('[id]'), function () {
+    this.setAttribute('id', self.id + this.getAttribute('id'));
   });
-  forEach(this._pDom.querySelectorAll("label[for]"), function () {
-    this.setAttribute("for", self.id + this.getAttribute("for"));
+  forEach(this._pDom.querySelectorAll('label[for]'), function () {
+    this.setAttribute('for', self.id + this.getAttribute('for'));
   });
-  forEach(this._pDom.querySelectorAll("input[list]"), function () {
-    this.setAttribute("list", self.id + this.getAttribute("list"));
+  forEach(this._pDom.querySelectorAll('input[list]'), function () {
+    this.setAttribute('list', self.id + this.getAttribute('list'));
   });
-  forEach(this._pDom.querySelectorAll("datalist[id]"), function () {
-    this.setAttribute("id", self.id + this.getAttribute("id"));
+  forEach(this._pDom.querySelectorAll('datalist[id]'), function () {
+    this.setAttribute('id', self.id + this.getAttribute('id'));
   });
 
   /***
@@ -84,12 +84,16 @@ function createPageDOM() {
   const categorys = this.ctmobile.getPageConfigAttribute(this.pageId, 'intentfilterCategorys');
   const priority = this.ctmobile.getPageConfigAttribute(this.pageId, 'intentfilterPriority');
   if (action) {
-    this.ctmobile.registerReceiver({
-      el: this._pDom,
-      action: action,
-      priority: priority ? parseInt(priority) : 0,
-      categorys: categorys ? categorys.split(" ") : []
-    }, this.pageReceiver, this);
+    this.ctmobile.registerReceiver(
+      {
+        el: this._pDom,
+        action: action,
+        priority: priority ? parseInt(priority) : 0,
+        categorys: categorys ? categorys.split(' ') : [],
+      },
+      this.pageReceiver,
+      this,
+    );
   }
 }
 
@@ -101,7 +105,7 @@ function layout() {
   /***
    * 复位
    */
-  slideByTransition.call(this, this.transition, "reset", 0);
+  slideByTransition.call(this, this.transition, 'reset', 0);
 }
 
 /**
@@ -115,17 +119,17 @@ function addEventListeners() {
    * 注册Page的缺省事件
    */
   self.getPageJO().on({
-    "pageBeforeShow": self.pageBeforeShow.bind(self),
-    "pageShow": self.pageShow.bind(self),
-    "pageAfterShow": self.pageAfterShow.bind(self),
-    "pageBeforePause": self.pageBeforePause.bind(self),
-    "pageAfterPause": self.pageAfterPause.bind(self),
-    "pageBeforeRestore": self.pageBeforeRestore.bind(self),
-    "pageRestore": self.pageRestore.bind(self),
-    "pageAfterRestore": self.pageAfterRestore.bind(self),
-    "pageBeforeDestroy": self.pageBeforeDestroy.bind(self),
-    "pageResult": self.pageResult.bind(self),
-    "pageReceiver": self.pageReceiver.bind(self)
+    pageBeforeShow: self.pageBeforeShow.bind(self),
+    pageShow: self.pageShow.bind(self),
+    pageAfterShow: self.pageAfterShow.bind(self),
+    pageBeforePause: self.pageBeforePause.bind(self),
+    pageAfterPause: self.pageAfterPause.bind(self),
+    pageBeforeRestore: self.pageBeforeRestore.bind(self),
+    pageRestore: self.pageRestore.bind(self),
+    pageAfterRestore: self.pageAfterRestore.bind(self),
+    pageBeforeDestroy: self.pageBeforeDestroy.bind(self),
+    pageResult: self.pageResult.bind(self),
+    pageReceiver: self.pageReceiver.bind(self),
   });
 
   /**
@@ -134,19 +138,19 @@ function addEventListeners() {
    * @param {Object} e
    */
   function onTransitionAndAnimationEnd(e) {
-    console.log(Constant._debugger, "------------------------------onTransitionAndAnimationEnd");
+    console.log(Constant._debugger, '------------------------------onTransitionAndAnimationEnd');
     /***
      * 如果当前页面的transition为material则肯定不会执行webkitTransitionEnd事件
      */
-    if (e.type === "webkitTransitionEnd" && e.target.getAttribute("data-ct-data-role") !== "page") {
+    if (e.type === 'webkitTransitionEnd' && e.target.getAttribute('data-ct-data-role') !== 'page') {
       return;
     }
 
     if (self.pageTransitionType) {
-      if (self.pageTransitionType === "start") {
+      if (self.pageTransitionType === 'start') {
         delete self.pageTransitionType;
         pageStartTransitionEndCallback.call(self, e);
-      } else if (self.pageTransitionType === "finish") {
+      } else if (self.pageTransitionType === 'finish') {
         delete self.pageTransitionType;
         pageFinishTransitioneEndCallback.call(self, e);
       }
@@ -156,8 +160,8 @@ function addEventListeners() {
   /***
    * 注册Page的transitionEnd和animationEnd事件
    */
-  self.getPageDOM().addEventListener("webkitTransitionEnd", onTransitionAndAnimationEnd, false);
-  self.getPageDOM().addEventListener("webkitAnimationEnd", onTransitionAndAnimationEnd, false);
+  self.getPageDOM().addEventListener('webkitTransitionEnd', onTransitionAndAnimationEnd, false);
+  self.getPageDOM().addEventListener('webkitAnimationEnd', onTransitionAndAnimationEnd, false);
 }
 
 /**
@@ -171,8 +175,10 @@ function pageFinishTransitioneEndCallback(e) {
   /***
    * 如果当前页面的transition为material则肯定不会执行webkitTransitionEnd事件
    */
-  if ((e.type === "webkitTransitionEnd" && e.target.getAttribute("data-ct-data-role") !== "page") ||
-    (e.type === "webkitAnimationEnd" && e.target.getAttribute("data-ct-data-role") !== "page")) {
+  if (
+    (e.type === 'webkitTransitionEnd' && e.target.getAttribute('data-ct-data-role') !== 'page') ||
+    (e.type === 'webkitAnimationEnd' && e.target.getAttribute('data-ct-data-role') !== 'page')
+  ) {
     return;
   }
 
@@ -181,20 +187,20 @@ function pageFinishTransitioneEndCallback(e) {
 
   /***
    */
-  self.getPageDOM().classList.remove("materialHide");
+  self.getPageDOM().classList.remove('materialHide');
 
   /***
    * 当前页隐藏
    */
-  self.getPageDOM().classList.remove("active");
-  self.ctmobile.maskDOM.style.display = "none";
+  self.getPageDOM().classList.remove('active');
+  self.ctmobile.maskDOM.style.display = 'none';
   self.changeKey = false;
 
   /***
    * 删除DOM
    */
   const ctDataMode = self.ctmobile.getPageConfigAttribute(self.pageId, 'mode');
-  if (ctDataMode.toLowerCase().indexOf("singleinstance") === -1) {
+  if (ctDataMode.toLowerCase().indexOf('singleinstance') === -1) {
     const unmountFlag = ReactDOM.unmountComponentAtNode(self.getPageDOM());
     if (unmountFlag) {
       self.getPageDOM().parentNode.removeChild(self.getPageDOM());
@@ -207,20 +213,23 @@ function pageFinishTransitioneEndCallback(e) {
     /***
      * 当前页之前页恢复之后事件
      */
-    self.ctmobile.fireEvent(self.ctmobile.getPageByIndex(lastPrePageIndex).getPageDOM(), "pageAfterRestore");
+    self.ctmobile.fireEvent(
+      self.ctmobile.getPageByIndex(lastPrePageIndex).getPageDOM(),
+      'pageAfterRestore',
+    );
 
     /***
      * 如果当前页是带有返回值的页
      */
     if (
-      (ctDataMode.toLowerCase().lastIndexOf("result") !== -1) &&
+      ctDataMode.toLowerCase().lastIndexOf('result') !== -1 &&
       self.resultIntent &&
       self.resultIntent.resultCode
     ) {
       self.ctmobile.fireEvent(
         self.ctmobile.getPageByIndex(lastPrePageIndex).getPageDOM(),
-        "pageResult",
-        [self.resultIntent.resultCode, self.resultIntent.bundle]
+        'pageResult',
+        [self.resultIntent.resultCode, self.resultIntent.bundle],
       );
     }
   }
@@ -246,8 +255,10 @@ function pageStartTransitionEndCallback(e) {
   /***
    * 如果当前页面的transition为material则肯定不会执行webkitTransitionEnd事件
    */
-  if ((e.type === "webkitTransitionEnd" && e.target.getAttribute("data-ct-data-role") !== "page") ||
-    (e.type === "webkitAnimationEnd" && e.target.getAttribute("data-ct-data-role") !== "page")) {
+  if (
+    (e.type === 'webkitTransitionEnd' && e.target.getAttribute('data-ct-data-role') !== 'page') ||
+    (e.type === 'webkitAnimationEnd' && e.target.getAttribute('data-ct-data-role') !== 'page')
+  ) {
     return;
   }
 
@@ -257,13 +268,13 @@ function pageStartTransitionEndCallback(e) {
   /***
    * 当前页移除materialShow
    */
-  self.getPageDOM().classList.remove("materialShow");
+  self.getPageDOM().classList.remove('materialShow');
   /***
    * 最后一页隐藏
    */
-  self.ctmobile.getLastPage().getPageDOM().classList.remove("active");
+  self.ctmobile.getLastPage().getPageDOM().classList.remove('active');
 
-  self.ctmobile.maskDOM.style.display = "none";
+  self.ctmobile.maskDOM.style.display = 'none';
   self.changeKey = false;
 
   /***
@@ -274,13 +285,16 @@ function pageStartTransitionEndCallback(e) {
   /***
    * 当前页显示之后事件
    */
-  self.ctmobile.fireEvent(self.getPageDOM(), "pageAfterShow");
+  self.ctmobile.fireEvent(self.getPageDOM(), 'pageAfterShow');
 
   /***
    * 当前页之前的页面暂停之后
    */
   if (self.ctmobile.getHistoryLength() >= 2) {
-    self.ctmobile.fireEvent(self.ctmobile.getPageByIndex(self.ctmobile.getHistoryLength() - 2).getPageDOM(), "pageAfterPause");
+    self.ctmobile.fireEvent(
+      self.ctmobile.getPageByIndex(self.ctmobile.getHistoryLength() - 2).getPageDOM(),
+      'pageAfterPause',
+    );
   }
 
   if (self.pageTransitionEndCallback) {
@@ -298,7 +312,8 @@ function pageStartTransitionEndCallback(e) {
  */
 function slideByTransition(transition, type, duration, beforeCallback) {
   const self = this;
-  let x = 0, y = 0;
+  let x = 0,
+    y = 0;
 
   /****
    * 重置
@@ -308,51 +323,57 @@ function slideByTransition(transition, type, duration, beforeCallback) {
      * 从右到左
      */
     if (new RegExp(/.+left/g).exec(transition)) {
-      x = "100%";
-    }
+      x = '100%';
+    } else if (new RegExp(/.+right/g).exec(transition)) {
     /***
      * 从左到右
      */
-    else if (new RegExp(/.+right/g).exec(transition)) {
-      x = "-100%";
-    }
+      x = '-100%';
+    } else if (new RegExp(/.+up/g).exec(transition)) {
     /***
      * 从下到上
      */
-    else if (new RegExp(/.+up/g).exec(transition)) {
-      y = "100%";
-    }
+      y = '100%';
+    } else if (new RegExp(/.+down/g).exec(transition)) {
     /***
      * 从上到下
      */
-    else if (new RegExp(/.+down/g).exec(transition)) {
-      y = "-100%";
+      y = '-100%';
     }
 
     /***
      * 如果过渡类型是微信类型且过渡时间为零则重置之前的面板位置
      */
-    if (transition.indexOf("wx") === 0 && duration !== 0) {
+    if (transition.indexOf('wx') === 0 && duration !== 0) {
       delete self.ctmobile.getPageByIndex(self.ctmobile.getHistoryLength() - 2).pageTransitionType;
-      slide.call(self.ctmobile.getPageByIndex(self.ctmobile.getHistoryLength() - 2), 0, 0, duration / 2);
-    }
+      slide.call(
+        self.ctmobile.getPageByIndex(self.ctmobile.getHistoryLength() - 2),
+        0,
+        0,
+        duration / 2,
+      );
+    } else if (transition.indexOf('push') === 0 && duration !== 0) {
     /***
      * 如果过渡类型是push且过渡时间为零则重置之前的面板位置
      */
-    else if (transition.indexOf("push") === 0 && duration !== 0) {
       delete self.ctmobile.getPageByIndex(self.ctmobile.getHistoryLength() - 2).pageTransitionType;
-      slide.call(self.ctmobile.getPageByIndex(self.ctmobile.getHistoryLength() - 2), 0, 0, duration);
+      slide.call(
+        self.ctmobile.getPageByIndex(self.ctmobile.getHistoryLength() - 2),
+        0,
+        0,
+        duration,
+      );
     }
 
     /***
      * 当前页firstExecute
      */
-    if (transition.indexOf("material") === 0) {
+    if (transition.indexOf('material') === 0) {
       if (duration !== 0) {
         if (beforeCallback) {
           beforeCallback();
         }
-        this.getPageDOM().classList.add("materialHide");
+        this.getPageDOM().classList.add('materialHide');
       }
     } else {
       slide.call(this, x, y, duration, beforeCallback);
@@ -366,43 +387,42 @@ function slideByTransition(transition, type, duration, beforeCallback) {
     /***
      * 如果过渡类型是微信类型
      */
-    if (transition.indexOf("wx") === 0 && duration !== 0) {
+    if (transition.indexOf('wx') === 0 && duration !== 0) {
       delete self.ctmobile.getLastPage().pageTransitionType;
       if (new RegExp(/.+left/g).exec(transition)) {
-        slide.call(self.ctmobile.getLastPage(), "-20%", y, duration / 2);
+        slide.call(self.ctmobile.getLastPage(), '-20%', y, duration / 2);
       } else if (new RegExp(/.+right/g).exec(transition)) {
-        slide.call(self.ctmobile.getLastPage(), "20%", y, duration / 2);
+        slide.call(self.ctmobile.getLastPage(), '20%', y, duration / 2);
       } else if (new RegExp(/.+up/g).exec(transition)) {
-        slide.call(self.ctmobile.getLastPage(), x, "-20%", duration / 2);
+        slide.call(self.ctmobile.getLastPage(), x, '-20%', duration / 2);
       } else if (new RegExp(/.+down/g).exec(transition)) {
-        slide.call(self.ctmobile.getLastPage(), x, "20%", duration / 2);
+        slide.call(self.ctmobile.getLastPage(), x, '20%', duration / 2);
       }
-    }
+    } else if (transition.indexOf('push') === 0 && duration !== 0) {
     /***
      * 如果过度类型是push
      */
-    else if (transition.indexOf("push") === 0 && duration !== 0) {
       delete self.ctmobile.getLastPage().pageTransitionType;
       if (new RegExp(/.+left/g).exec(transition)) {
-        slide.call(self.ctmobile.getLastPage(), "-100%", y, duration);
+        slide.call(self.ctmobile.getLastPage(), '-100%', y, duration);
       } else if (new RegExp(/.+right/g).exec(transition)) {
-        slide.call(self.ctmobile.getLastPage(), "100%", y, duration);
+        slide.call(self.ctmobile.getLastPage(), '100%', y, duration);
       } else if (new RegExp(/.+up/g).exec(transition)) {
-        slide.call(self.ctmobile.getLastPage(), x, "-100%", duration);
+        slide.call(self.ctmobile.getLastPage(), x, '-100%', duration);
       } else if (new RegExp(/.+down/g).exec(transition)) {
-        slide.call(self.ctmobile.getLastPage(), x, "100%", duration);
+        slide.call(self.ctmobile.getLastPage(), x, '100%', duration);
       }
     }
 
     /***
      * 当前页firstExecute
      */
-    if (transition.indexOf("material") === 0) {
+    if (transition.indexOf('material') === 0) {
       if (duration !== 0) {
         if (beforeCallback) {
           beforeCallback();
         }
-        self.getPageDOM().classList.add("materialShow");
+        self.getPageDOM().classList.add('materialShow');
       }
     } else {
       slide.call(this, x, y, duration, beforeCallback);
@@ -412,13 +432,12 @@ function slideByTransition(transition, type, duration, beforeCallback) {
   /***
    * 重置
    */
-  if (type === "reset") {
+  if (type === 'reset') {
     reset.call(self);
-  }
+  } else {
   /***
    * 显示
    */
-  else {
     show.call(self);
   }
 }
@@ -442,10 +461,10 @@ function slide(x, y, duration, beforeCallback) {
    */
   function slideSub() {
     self.getPageJO().css({
-      "transform": "translate3d(" + x + "," + y + ",0)",
-      "-webkit-transform": "translate3d(" + x + "," + y + ",0)",
-      "transition": "transform " + duration + "ms cubic-bezier(0.1,0.25,0.1,1)",
-      "-webkit-transition": "transform " + duration + "ms cubic-bezier(0.1,0.25,0.1,1)"
+      transform: 'translate3d(' + x + ',' + y + ',0)',
+      '-webkit-transform': 'translate3d(' + x + ',' + y + ',0)',
+      transition: 'transform ' + duration + 'ms cubic-bezier(0.1,0.25,0.1,1)',
+      '-webkit-transition': 'transform ' + duration + 'ms cubic-bezier(0.1,0.25,0.1,1)',
     });
   }
 
@@ -455,7 +474,6 @@ function slide(x, y, duration, beforeCallback) {
     window.setTimeout(slideSub, 100);
   }
 }
-
 
 /**
  * Page类
@@ -489,16 +507,16 @@ const Page = {
         constructor(props) {
           super(props);
 
-          const {ctmobile, id, config = {}} = props;
+          const { ctmobile, id, config = {} } = props;
 
           Object.assign(this, {
             ctmobile,
             config,
             _pDom: el,
             id,
-            pageId: id.substring(0, id.lastIndexOf("_")),
+            pageId: id.substring(0, id.lastIndexOf('_')),
             /*** 默认的页面过渡类型 */
-            transition: "material",
+            transition: 'material',
             /*** 页面切换时的锁 */
             changeKey: false,
             /*** Page的transition类型[start|finish] */
@@ -525,7 +543,7 @@ const Page = {
           /***
            * 如果是singleInstance 或 singleInstanceResult
            */
-          if (ctDataMode.toLowerCase().indexOf("singleinstance") !== -1) {
+          if (ctDataMode.toLowerCase().indexOf('singleinstance') !== -1) {
             if (!this.ctmobile.getSingleInstance(pageId)) {
               this.ctmobile.singleInstances[pageId] = this;
             }
@@ -673,7 +691,6 @@ const Page = {
           }
         }
 
-
         /**------------------- 生命周期函数 end-----------------**/
 
         /**
@@ -699,7 +716,7 @@ const Page = {
            * 修改transitionEnd的类型
            * @type {string}
            */
-          self.pageTransitionType = "start";
+          self.pageTransitionType = 'start';
 
           /***
            * 修改transitionEnd的回调函数
@@ -710,33 +727,37 @@ const Page = {
            * 最后一页暂停之前事件
            */
           if (self.ctmobile.getHistoryLength() !== 0) {
-            self.ctmobile.fireEvent(self.ctmobile.getLastPage().getPageDOM(), "pageBeforePause");
+            self.ctmobile.fireEvent(self.ctmobile.getLastPage().getPageDOM(), 'pageBeforePause');
           }
 
           /***
            * 当前页显示前事件
            */
-          self.ctmobile.fireEvent(self.getPageDOM(), "pageBeforeShow");
+          self.ctmobile.fireEvent(self.getPageDOM(), 'pageBeforeShow');
 
           if (duration !== 0) {
-            self.ctmobile.maskDOM.style.display = "block";
+            self.ctmobile.maskDOM.style.display = 'block';
           }
-
 
           /***
            * 当前页面显示
            */
-          self.getPageDOM().classList.add("active");
+          self.getPageDOM().classList.add('active');
           self.getPageDOM().style.zIndex = ++self.ctmobile.zIndex;
           /***
            * 当前页显示事件
            */
-          self.ctmobile.fireEvent(self.getPageDOM(), "pageShow");
+          self.ctmobile.fireEvent(self.getPageDOM(), 'pageShow');
 
           /***
            * 当前页移动
            */
-          slideByTransition.call(self, self.transition, "show", duration === 0 ? 0 : Constant._SLIDEDURATION);
+          slideByTransition.call(
+            self,
+            self.transition,
+            'show',
+            duration === 0 ? 0 : Constant._SLIDEDURATION,
+          );
 
           /***
            * 只有一个页的时候
@@ -744,7 +765,7 @@ const Page = {
           if (duration === 0) {
             self.ctmobile.router.addPage(self);
             self.changeKey = false;
-            self.ctmobile.fireEvent(self.getPageDOM(), "pageAfterShow");
+            self.ctmobile.fireEvent(self.getPageDOM(), 'pageAfterShow');
             if (callback) {
               callback();
             }
@@ -775,7 +796,7 @@ const Page = {
            * 修改transitionEnd的类型
            * @type {string}
            */
-          self.pageTransitionType = "finish";
+          self.pageTransitionType = 'finish';
 
           /***
            * 层级减
@@ -792,12 +813,12 @@ const Page = {
            */
           const ctDataMode = self.ctmobile.getPageConfigAttribute(self.getPageId(), 'mode');
 
-          if (ctDataMode.toLowerCase().indexOf("singleinstance") === -1) {
-            self.ctmobile.fireEvent(self.getPageDOM(), "pageBeforeDestroy");
+          if (ctDataMode.toLowerCase().indexOf('singleinstance') === -1) {
+            self.ctmobile.fireEvent(self.getPageDOM(), 'pageBeforeDestroy');
             self.ctmobile.unregisterReceiverByDom(self.getPageDOM());
           } else {
             // 页面暂停之前
-            self.ctmobile.fireEvent(self.getPageDOM(), "pageAfterPause");
+            self.ctmobile.fireEvent(self.getPageDOM(), 'pageAfterPause');
           }
 
           // _history中最后一个元素之前的索引
@@ -808,11 +829,14 @@ const Page = {
             /***
              * 最后一个页之前的页触发恢复之前事件
              */
-            self.ctmobile.fireEvent(self.ctmobile.getPageByIndex(lastPrePageIndex).getPageDOM(), "pageBeforeRestore");
+            self.ctmobile.fireEvent(
+              self.ctmobile.getPageByIndex(lastPrePageIndex).getPageDOM(),
+              'pageBeforeRestore',
+            );
           }
 
           if (duration !== 0) {
-            self.ctmobile.maskDOM.style.display = "block";
+            self.ctmobile.maskDOM.style.display = 'block';
           }
 
           // (多于一个元素)且(改变浏览器历史)
@@ -820,29 +844,37 @@ const Page = {
             /***
              * 恢复最后一个页之前的页
              */
-            self.ctmobile.getPageByIndex(lastPrePageIndex).getPageDOM().classList.add("active");
+            self.ctmobile.getPageByIndex(lastPrePageIndex).getPageDOM().classList.add('active');
             /***
              * 最后一个页之前的页恢复事件
              */
-            self.ctmobile.fireEvent(self.ctmobile.getPageByIndex(lastPrePageIndex).getPageDOM(), "pageRestore");
+            self.ctmobile.fireEvent(
+              self.ctmobile.getPageByIndex(lastPrePageIndex).getPageDOM(),
+              'pageRestore',
+            );
           }
 
           /***
            * 重置当前页
            */
-          slideByTransition.call(this, this.transition, "reset", duration === 0 ? 0 : Constant._SLIDEDURATION);
+          slideByTransition.call(
+            this,
+            this.transition,
+            'reset',
+            duration === 0 ? 0 : Constant._SLIDEDURATION,
+          );
 
           /***
            * 只有一个页的时候
            */
           if (duration === 0) {
-            self.getPageDOM().classList.remove("active");
+            self.getPageDOM().classList.remove('active');
             self.changeKey = false;
 
             /***
              * 删除DOM
              */
-            if (ctDataMode.toLowerCase().indexOf("singleinstance") === -1) {
+            if (ctDataMode.toLowerCase().indexOf('singleinstance') === -1) {
               const unmountFlag = ReactDOM.unmountComponentAtNode(self.getPageDOM());
               if (unmountFlag) {
                 self.getPageDOM().parentNode.removeChild(self.getPageDOM());
@@ -851,15 +883,19 @@ const Page = {
 
             // (多于一个元素)且(改变浏览器历史)
             if (self.ctmobile.getHistoryLength() > 1 && (!option || !option.reload)) {
-              self.ctmobile.fireEvent(self.ctmobile.getPageByIndex(lastPrePageIndex).getPageDOM(), "pageAfterRestore");
+              self.ctmobile.fireEvent(
+                self.ctmobile.getPageByIndex(lastPrePageIndex).getPageDOM(),
+                'pageAfterRestore',
+              );
               if (
-                (ctDataMode.toLowerCase().lastIndexOf("result") !== -1) &&
+                ctDataMode.toLowerCase().lastIndexOf('result') !== -1 &&
                 self.resultIntent &&
-                self.resultIntent.resultCode) {
+                self.resultIntent.resultCode
+              ) {
                 self.ctmobile.fireEvent(
                   self.ctmobile.getPageByIndex(lastPrePageIndex).getPageDOM(),
-                  "pageResult",
-                  [self.resultIntent.resultCode, self.resultIntent.bundle]
+                  'pageResult',
+                  [self.resultIntent.resultCode, self.resultIntent.bundle],
                 );
               }
             }
@@ -919,10 +955,10 @@ const Page = {
          * @param {String} requestCode
          * @param {Object} bundle
          */
-        setRequest(requestCode = "", bundle = {}) {
+        setRequest(requestCode = '', bundle = {}) {
           this.requestIntent = {
             requestCode: requestCode,
-            bundle: bundle
+            bundle: bundle,
           };
         }
 
@@ -945,7 +981,7 @@ const Page = {
          * @param {String} resultCode
          * @param {Object} bundle
          */
-        setResult(resultCode = "", bundle = {}) {
+        setResult(resultCode = '', bundle = {}) {
           this.resultIntent = {
             resultCode: resultCode,
             bundle: bundle,
@@ -979,7 +1015,7 @@ const Page = {
 
         render() {
           const mergeProps = {
-            parent:this,
+            parent: this,
             _pDom: this._pDom,
             pageId: this.pageId,
             getInstance: (ins) => {
@@ -1013,8 +1049,8 @@ const Page = {
         id: PropTypes.string,
         config: PropTypes.object,
         callback: PropTypes.func,
-        parent:PropTypes.object,
-        _pDom:PropTypes.object,
+        parent: PropTypes.object,
+        _pDom: PropTypes.object,
         pageId: PropTypes.string,
         getInstance: PropTypes.func,
       };
@@ -1031,11 +1067,11 @@ const Page = {
         ctmobile: PropTypes.object,
         id: PropTypes.string,
         config: PropTypes.object,
-        callback: PropTypes.func
+        callback: PropTypes.func,
       };
 
       return PageComponent;
-    }
+    };
   },
   /**
    * @class WrappedPage
@@ -1051,7 +1087,7 @@ const Page = {
         this.props.getInstance(this);
       }
     }
-  }
+  },
 };
 
 export default Page;

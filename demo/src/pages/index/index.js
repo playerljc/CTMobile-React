@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CtMobile from "@ctmobile/react";
+import CtMobile from '@ctmobile/react';
 
-const {Link, Back} = CtMobile;
+const { Link, Back } = CtMobile;
 
 export default class extends CtMobile.Page.WrappedPage {
   constructor(props) {
@@ -115,14 +115,38 @@ export default class extends CtMobile.Page.WrappedPage {
         <header>
           <p className="ct-header-title">CtMobile-React Demo</p>
         </header>
-        <div className="ct-content" style={{top:'3rem',bottom:0}}>
+        <div className="ct-content" style={{ top: '3rem', bottom: 0 }}>
           <ul>
-            <li><Link className="link" pageId="beginnewpage">开始一个新的页面</Link></li>
-            <li><Link className="link" pageId="return">返回</Link></li>
-            <li><Link className="link" pageId="startmode">启动模式</Link></li>
-            <li><Link className="link" pageId="parameter">界面传递参数</Link></li>
-            <li><Link className="link" pageId="transition">页面转场</Link></li>
-            <li><Link className="link" pageId="borasdcast">广播</Link></li>
+            <li>
+              <Link className="link" pageId="beginnewpage">
+                开始一个新的页面
+              </Link>
+            </li>
+            <li>
+              <Link className="link" pageId="return">
+                返回
+              </Link>
+            </li>
+            <li>
+              <Link className="link" pageId="startmode">
+                启动模式
+              </Link>
+            </li>
+            <li>
+              <Link className="link" pageId="parameter">
+                界面传递参数
+              </Link>
+            </li>
+            <li>
+              <Link className="link" pageId="transition">
+                页面转场
+              </Link>
+            </li>
+            <li>
+              <Link className="link" pageId="borasdcast">
+                广播
+              </Link>
+            </li>
           </ul>
         </div>
       </React.Fragment>

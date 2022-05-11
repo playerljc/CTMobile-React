@@ -3,12 +3,12 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    'commons': ['./src/commons']
+    commons: ['./src/commons'],
   },
   output: {
     path: path.join(__dirname, 'src', 'assets', 'dll'),
     filename: '[name].js',
-    library: '[name]_[hash]'
+    library: '[name]_[hash]',
   },
   mode: 'development',
   plugins: [
@@ -19,5 +19,5 @@ module.exports = {
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
-  }
+  },
 };

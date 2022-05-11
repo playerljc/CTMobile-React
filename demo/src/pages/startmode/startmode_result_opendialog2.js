@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CtMobile from "@ctmobile/react";
+import CtMobile from '@ctmobile/react';
 
-const {Link, Back} = CtMobile;
+const { Link, Back } = CtMobile;
 
 export default class extends CtMobile.Page.WrappedPage {
   constructor(props) {
@@ -16,7 +16,7 @@ export default class extends CtMobile.Page.WrappedPage {
    * @param {Object} e
    */
   pageCreate(e) {
-    this.props.parent.setRequest(this.props.parent.getPageId(),{});
+    this.props.parent.setRequest(this.props.parent.getPageId(), {});
   }
 
   /***
@@ -113,7 +113,7 @@ export default class extends CtMobile.Page.WrappedPage {
    * @override
    */
   pageResult(e, resultCode, bundle) {
-    console.log("resultCode", resultCode, "bundle", JSON.stringify(bundle));
+    console.log('resultCode', resultCode, 'bundle', JSON.stringify(bundle));
     alert(`resultCode:${resultCode}\r\nbundle:${JSON.stringify(bundle)}`);
   }
 
@@ -121,16 +121,23 @@ export default class extends CtMobile.Page.WrappedPage {
     return (
       <React.Fragment>
         <header>
-          <Back className="ct-back-icon"/>
+          <Back className="ct-back-icon" />
           <p className="ct-header-title">startmode_result_opendialog2</p>
         </header>
-        <div className="ct-content" style={{top: '3rem', bottom: 0}}>
+        <div className="ct-content" style={{ top: '3rem', bottom: 0 }}>
           <ul>
-            <li><a className="link" onClick={() => {
-              const request = this.props.parent.getRequest();
-              this.props.parent.setResult(request.requestCode, {a: 1, b: 2});
-              this.props.parent.over();
-            }}>关闭窗体并返回数据</a></li>
+            <li>
+              <a
+                className="link"
+                onClick={() => {
+                  const request = this.props.parent.getRequest();
+                  this.props.parent.setResult(request.requestCode, { a: 1, b: 2 });
+                  this.props.parent.over();
+                }}
+              >
+                关闭窗体并返回数据
+              </a>
+            </li>
           </ul>
         </div>
       </React.Fragment>

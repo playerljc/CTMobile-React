@@ -1,12 +1,12 @@
-@import "../../../node_modules/font-awesome/less/font-awesome.less";
-@import "../../../node_modules/@ctmobile/react/lib/index.css";
+@import '../../../node_modules/font-awesome/less/font-awesome.less';
+@import '../../../node_modules/@ctmobile/react/lib/index.css';
 //@import "../../ctmobile-react/index.less";
 
 .TimeBack {
   display: flex;
   align-items: center;
   .time {
-    margin-left: .5rem;
+    margin-left: 0.5rem;
     font-size: 14px;
   }
 }
@@ -15,27 +15,27 @@
   display: flex;
   align-items: center;
   .text {
-    margin-left: .5rem;
+    margin-left: 0.5rem;
     font-size: 14px;
   }
 }
 
 .AppTextArea {
   display: flex;
-  border: 0;
-  outline: 0;
+  box-sizing: border-box;
   width: 100%;
   padding: 1rem;
   font-size: 14px;
-  box-sizing: border-box;
+  border: 0;
+  outline: 0;
 }
 
 .button {
-  color: #000;
-  margin: .25rem;
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: .5rem 0;
-  border-top: 1px solid rgba(0, 0, 0, .1);
+  justify-content: center;
+  margin: 0.25rem;
+  padding: 0.5rem 0;
+  color: #000;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }

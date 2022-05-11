@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CtMobile from "@ctmobile/react";
+import CtMobile from '@ctmobile/react';
 
-const {Link, Back} = CtMobile;
+const { Link, Back } = CtMobile;
 
 export default class extends CtMobile.Page.WrappedPage {
   constructor(props) {
@@ -113,14 +113,26 @@ export default class extends CtMobile.Page.WrappedPage {
     return (
       <React.Fragment>
         <header>
-          <Back className="ct-back-icon"/>
+          <Back className="ct-back-icon" />
           <p className="ct-header-title">transition</p>
         </header>
-        <div className="ct-content" style={{top: '3rem', bottom: 0}}>
+        <div className="ct-content" style={{ top: '3rem', bottom: 0 }}>
           <ul>
-            <li><Link className="link" pageId="transition_noreload">增加历史</Link></li>
-            <li><Link className="link" pageId="transition_reload">不增加历史</Link></li>
-            <li><Link className="link" pageId="transition_mode">转场效果</Link></li>
+            <li>
+              <Link className="link" pageId="transition_noreload">
+                增加历史
+              </Link>
+            </li>
+            <li>
+              <Link className="link" pageId="transition_reload">
+                不增加历史
+              </Link>
+            </li>
+            <li>
+              <Link className="link" pageId="transition_mode">
+                转场效果
+              </Link>
+            </li>
           </ul>
         </div>
       </React.Fragment>

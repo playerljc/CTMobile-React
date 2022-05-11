@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CtMobile from "@ctmobile/react";
+import CtMobile from '@ctmobile/react';
 
-const {Link, Back} = CtMobile;
+const { Link, Back } = CtMobile;
 
 export default class extends CtMobile.Page.WrappedPage {
   constructor(props) {
@@ -113,7 +113,7 @@ export default class extends CtMobile.Page.WrappedPage {
    * @override
    */
   pageResult(e, resultCode, bundle) {
-    console.log("resultCode", resultCode, "bundle", JSON.stringify(bundle));
+    console.log('resultCode', resultCode, 'bundle', JSON.stringify(bundle));
     alert(`resultCode:${resultCode}\r\nbundle:${JSON.stringify(bundle)}`);
   }
 
@@ -121,19 +121,37 @@ export default class extends CtMobile.Page.WrappedPage {
     return (
       <React.Fragment>
         <header>
-          <Back className="ct-back-icon"/>
+          <Back className="ct-back-icon" />
           <p className="ct-header-title">startmode_result_onetomore</p>
         </header>
-        <div className="ct-content" style={{top: '3rem', bottom: 0}}>
+        <div className="ct-content" style={{ top: '3rem', bottom: 0 }}>
           <ul>
-            <li><a className="link" onClick={() => {
-              this.props.parent.setRequest("startmode_result_opendialog");
-              this.props.parent.getCtMobile().startPage('#startmode_result_opendialog?pageId=startmode_result_opendialog');
-            }}>打开startmode_result_opendialog</a></li>
-            <li><a className="link" onClick={() => {
-              this.props.parent.setRequest("startmode_result_opendialog2");
-              this.props.parent.getCtMobile().startPage('#startmode_result_opendialog?pageId=startmode_result_opendialog2');
-            }}>打开startmode_result_opendialog2</a></li>
+            <li>
+              <a
+                className="link"
+                onClick={() => {
+                  this.props.parent.setRequest('startmode_result_opendialog');
+                  this.props.parent
+                    .getCtMobile()
+                    .startPage('#startmode_result_opendialog?pageId=startmode_result_opendialog');
+                }}
+              >
+                打开startmode_result_opendialog
+              </a>
+            </li>
+            <li>
+              <a
+                className="link"
+                onClick={() => {
+                  this.props.parent.setRequest('startmode_result_opendialog2');
+                  this.props.parent
+                    .getCtMobile()
+                    .startPage('#startmode_result_opendialog?pageId=startmode_result_opendialog2');
+                }}
+              >
+                打开startmode_result_opendialog2
+              </a>
+            </li>
           </ul>
         </div>
       </React.Fragment>

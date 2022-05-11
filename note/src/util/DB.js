@@ -6,7 +6,7 @@ export default {
    * 获取数据路链接
    */
   getConnection() {
-    return openDatabase("note", "1.0", "note", 6 * 1024 * 1024);
+    return openDatabase('note', '1.0', 'note', 6 * 1024 * 1024);
   },
   /**
    * 执行一个数据库更新
@@ -15,17 +15,24 @@ export default {
    */
   executeUpdate(sql, success) {
     this.getConnection().transaction(function (tx) {
-      tx.executeSql(sql, [], function () {
-        if(success) {
-          success();
-        }
-      }, function () {
-        console.log("1")
-      }, function () {
-        console.log("1")
-      }, function () {
-        console.log("1")
-      });
+      tx.executeSql(
+        sql,
+        [],
+        function () {
+          if (success) {
+            success();
+          }
+        },
+        function () {
+          console.log('1');
+        },
+        function () {
+          console.log('1');
+        },
+        function () {
+          console.log('1');
+        },
+      );
 
       //tx.executeSql("insert into note (id,createTime,info,title) values(?,?,?,?)",["1","2016-02-06","你是个好人","你是个好人"], function(){
       //    console.log("1")
@@ -46,8 +53,7 @@ export default {
    */
   executePrepareUpdate(sql, parameter, success) {
     this.getConnection().transaction(function (tx) {
-      tx.executeSql(sql, parameter || [], success || function () {
-      });
+      tx.executeSql(sql, parameter || [], success || function () {});
     });
   },
   /**
@@ -78,5 +84,5 @@ export default {
         }
       });
     });
-  }
+  },
 };
