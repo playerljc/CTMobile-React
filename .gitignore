@@ -16,8 +16,6 @@ webpack.config.dev.js
 
 coverage
 
-package-lock.json
-
 test
 
 .DS_Store
