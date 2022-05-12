@@ -81,9 +81,9 @@ function hashChange(hash, option) {
       ]);
     }
   } else {
-  /***
-   * 首页
-   */
+    /***
+     * 首页
+     */
     self.ctmobile.fireEvent(window.document, 'pageBeforeChange', [
       CtMobileFactory.getUrlParam(hash),
     ]);
@@ -127,9 +127,9 @@ function hashChange(hash, option) {
       });
     });
   } else {
-  /***
-   * 回退
-   */
+    /***
+     * 回退
+     */
     //  如果刷新的是栈顶的页面
     if (id === self.getLastPage().getId()) {
       return false;
@@ -189,7 +189,9 @@ class Link extends React.Component {
                   parameter = '',
                   reload = ctmobile.config.linkCaptureReload,
                 } = this.props;
+
                 const href = `${'#' + pageId}?pageId=${pageId}${parameter}`;
+
                 ctmobile.router.startPage(href, {
                   reload,
                 });

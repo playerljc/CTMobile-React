@@ -88,48 +88,45 @@ function createPage(id, callback) {
       if (pageRouterConfig) {
         // 路由中配置的ReactComponent
         const component = pageRouterConfig.component;
-        if (component && component.then) {
-          component
-            .then((ReactComponentWrap) => {
-              if (ReactComponentWrap) {
-                // 每个页的逻辑组件
-                ReactComponent = ReactComponentWrap.default;
-                // 顶层容器
-                const el = $(`<div data-ct-data-role="page"></div>`)[0];
-                document.body.appendChild(el);
-                // 包装逻辑组件
-                const WrappedComponent = Page.create(el)(ReactComponent);
 
-                let wrappedComponentIns = (
-                  <WrappedComponent
-                    ctmobile={this}
-                    id={id}
-                    // ct-data的一系列配置
-                    config={pageRouterConfig.config || {}}
-                    // componentDidMount后的操作
-                    callback={callback}
-                  />
-                );
+        (component.then || new Promise((resolve1) => resolve1(component)))
+          .then((ReactComponentWrap) => {
+            if (ReactComponentWrap) {
+              // 每个页的逻辑组件
+              ReactComponent = ReactComponentWrap.default || ReactComponentWrap;
+              // 顶层容器
+              const el = $(`<div data-ct-data-role="page"></div>`)[0];
+              document.body.appendChild(el);
+              // 包装逻辑组件
+              const WrappedComponent = Page.create(el)(ReactComponent);
 
-                // 对page进行包装
-                if (this.config.getPageWrap && this.config.getPageWrap instanceof Function) {
-                  wrappedComponentIns = this.config.getPageWrap(wrappedComponentIns);
-                }
+              let wrappedComponentIns = (
+                <WrappedComponent
+                  ctmobile={this}
+                  id={id}
+                  // ct-data的一系列配置
+                  config={pageRouterConfig.config || {}}
+                  // componentDidMount后的操作
+                  callback={callback}
+                />
+              );
 
-                // 包装逻辑组件放入顶层容器
-                ReactDOM.render(wrappedComponentIns, el, () => {
-                  resolve();
-                });
-              } else {
-                reject();
+              // 对page进行包装
+              if (this.config.getPageWrap && this.config.getPageWrap instanceof Function) {
+                wrappedComponentIns = this.config.getPageWrap(wrappedComponentIns);
               }
-            })
-            .catch((error) => {
-              reject(error);
-            });
-        } else {
-          reject();
-        }
+
+              // 包装逻辑组件放入顶层容器
+              ReactDOM.render(wrappedComponentIns, el, () => {
+                resolve();
+              });
+            } else {
+              reject();
+            }
+          })
+          .catch((error) => {
+            reject(error);
+          });
       } else {
         reject();
       }

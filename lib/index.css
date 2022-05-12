@@ -78,15 +78,29 @@ a:active {
 }
 [data-ct-data-role='page'].materialShow {
   -webkit-transform: translate3d(0, 56px, 0);
+  transform: translate3d(0, 56px, 0);
   opacity: 0;
   -webkit-animation: pageMaterialShow 200ms forwards;
   animation: pageMaterialShow 200ms forwards;
 }
 [data-ct-data-role='page'].materialHide {
   -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   opacity: 1;
   -webkit-animation: pageMaterialHide 200ms forwards;
   animation: pageMaterialHide 200ms forwards;
+}
+@-webkit-keyframes pageMaterialShow {
+  form {
+    -webkit-transform: translate3d(0, 56px, 0);
+    transform: translate3d(0, 56px, 0);
+    opacity: 0;
+  }
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
 }
 @keyframes pageMaterialShow {
   form {
@@ -100,17 +114,7 @@ a:active {
     opacity: 1;
   }
 }
-@-webkit-keyframes pageMaterialShow {
-  form {
-    -webkit-transform: translate3d(0, 56px, 0);
-    opacity: 0;
-  }
-  to {
-    -webkit-transform: translate3d(0, 0, 0);
-    opacity: 1;
-  }
-}
-@keyframes pageMaterialHide {
+@-webkit-keyframes pageMaterialHide {
   form {
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
@@ -122,13 +126,15 @@ a:active {
     opacity: 0;
   }
 }
-@-webkit-keyframes pageMaterialHide {
+@keyframes pageMaterialHide {
   form {
     -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
     opacity: 1;
   }
   to {
     -webkit-transform: translate3d(0, 56px, 0);
+    transform: translate3d(0, 56px, 0);
     opacity: 0;
   }
 }

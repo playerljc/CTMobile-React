@@ -142,7 +142,7 @@ function addEventListeners() {
     /***
      * 如果当前页面的transition为material则肯定不会执行webkitTransitionEnd事件
      */
-    if (e.type === 'webkitTransitionEnd' && e.target.getAttribute('data-ct-data-role') !== 'page') {
+    if (e.type === 'transitionend' && e.target.getAttribute('data-ct-data-role') !== 'page') {
       return;
     }
 
@@ -160,8 +160,8 @@ function addEventListeners() {
   /***
    * 注册Page的transitionEnd和animationEnd事件
    */
-  self.getPageDOM().addEventListener('webkitTransitionEnd', onTransitionAndAnimationEnd, false);
-  self.getPageDOM().addEventListener('webkitAnimationEnd', onTransitionAndAnimationEnd, false);
+  self.getPageDOM().addEventListener('transitionend', onTransitionAndAnimationEnd, false);
+  self.getPageDOM().addEventListener('animationend', onTransitionAndAnimationEnd, false);
 }
 
 /**
@@ -176,8 +176,8 @@ function pageFinishTransitioneEndCallback(e) {
    * 如果当前页面的transition为material则肯定不会执行webkitTransitionEnd事件
    */
   if (
-    (e.type === 'webkitTransitionEnd' && e.target.getAttribute('data-ct-data-role') !== 'page') ||
-    (e.type === 'webkitAnimationEnd' && e.target.getAttribute('data-ct-data-role') !== 'page')
+    (e.type === 'transitionend' && e.target.getAttribute('data-ct-data-role') !== 'page') ||
+    (e.type === 'animationend' && e.target.getAttribute('data-ct-data-role') !== 'page')
   ) {
     return;
   }
@@ -256,8 +256,8 @@ function pageStartTransitionEndCallback(e) {
    * 如果当前页面的transition为material则肯定不会执行webkitTransitionEnd事件
    */
   if (
-    (e.type === 'webkitTransitionEnd' && e.target.getAttribute('data-ct-data-role') !== 'page') ||
-    (e.type === 'webkitAnimationEnd' && e.target.getAttribute('data-ct-data-role') !== 'page')
+    (e.type === 'transitionend' && e.target.getAttribute('data-ct-data-role') !== 'page') ||
+    (e.type === 'animationend' && e.target.getAttribute('data-ct-data-role') !== 'page')
   ) {
     return;
   }
@@ -325,19 +325,19 @@ function slideByTransition(transition, type, duration, beforeCallback) {
     if (new RegExp(/.+left/g).exec(transition)) {
       x = '100%';
     } else if (new RegExp(/.+right/g).exec(transition)) {
-    /***
-     * 从左到右
-     */
+      /***
+       * 从左到右
+       */
       x = '-100%';
     } else if (new RegExp(/.+up/g).exec(transition)) {
-    /***
-     * 从下到上
-     */
+      /***
+       * 从下到上
+       */
       y = '100%';
     } else if (new RegExp(/.+down/g).exec(transition)) {
-    /***
-     * 从上到下
-     */
+      /***
+       * 从上到下
+       */
       y = '-100%';
     }
 
@@ -353,9 +353,9 @@ function slideByTransition(transition, type, duration, beforeCallback) {
         duration / 2,
       );
     } else if (transition.indexOf('push') === 0 && duration !== 0) {
-    /***
-     * 如果过渡类型是push且过渡时间为零则重置之前的面板位置
-     */
+      /***
+       * 如果过渡类型是push且过渡时间为零则重置之前的面板位置
+       */
       delete self.ctmobile.getPageByIndex(self.ctmobile.getHistoryLength() - 2).pageTransitionType;
       slide.call(
         self.ctmobile.getPageByIndex(self.ctmobile.getHistoryLength() - 2),
@@ -399,9 +399,9 @@ function slideByTransition(transition, type, duration, beforeCallback) {
         slide.call(self.ctmobile.getLastPage(), x, '20%', duration / 2);
       }
     } else if (transition.indexOf('push') === 0 && duration !== 0) {
-    /***
-     * 如果过度类型是push
-     */
+      /***
+       * 如果过度类型是push
+       */
       delete self.ctmobile.getLastPage().pageTransitionType;
       if (new RegExp(/.+left/g).exec(transition)) {
         slide.call(self.ctmobile.getLastPage(), '-100%', y, duration);
@@ -435,9 +435,9 @@ function slideByTransition(transition, type, duration, beforeCallback) {
   if (type === 'reset') {
     reset.call(self);
   } else {
-  /***
-   * 显示
-   */
+    /***
+     * 显示
+     */
     show.call(self);
   }
 }
@@ -462,9 +462,9 @@ function slide(x, y, duration, beforeCallback) {
   function slideSub() {
     self.getPageJO().css({
       transform: 'translate3d(' + x + ',' + y + ',0)',
-      '-webkit-transform': 'translate3d(' + x + ',' + y + ',0)',
+      // '-webkit-transform': 'translate3d(' + x + ',' + y + ',0)',
       transition: 'transform ' + duration + 'ms cubic-bezier(0.1,0.25,0.1,1)',
-      '-webkit-transition': 'transform ' + duration + 'ms cubic-bezier(0.1,0.25,0.1,1)',
+      // '-webkit-transition': 'transform ' + duration + 'ms cubic-bezier(0.1,0.25,0.1,1)',
     });
   }
 
