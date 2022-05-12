@@ -10,7 +10,8 @@
     "doc": "jsdoc src README.md -d doc -u doc/tutorials"
   },
   "files": [
-    "lib"
+    "lib",
+    "README_zh-CN.md"
   ],
   "repository": {
     "type": "git",
