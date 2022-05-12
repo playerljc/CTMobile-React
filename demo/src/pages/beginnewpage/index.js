@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CtMobile from "@ctmobile/react";
+import CtMobile from '@ctmobile/react';
 
-const {Link, Back} = CtMobile;
+const { Link, Back } = CtMobile;
 
 export default class extends CtMobile.Page.WrappedPage {
   constructor(props) {
@@ -113,15 +113,26 @@ export default class extends CtMobile.Page.WrappedPage {
     return (
       <React.Fragment>
         <header>
-          <Back className="ct-back-icon"/>
+          <Back className="ct-back-icon" />
           <p className="ct-header-title">开发模式</p>
         </header>
-        <div className="ct-content" style={{top: '3rem', bottom: 0}}>
+        <div className="ct-content" style={{ top: '3rem', bottom: 0 }}>
           <ul>
-            <li><Link className="link" pageId="beginnewpage_newpage">使用Link组件</Link></li>
-            <li><a className="link" onClick={() => {
-              this.props.startPage('#beginnewpage_newpage?pageId=beginnewpage_newpage');
-            }}>使用api</a></li>
+            <li>
+              <Link className="link" pageId="beginnewpage_newpage">
+                使用Link组件
+              </Link>
+            </li>
+            <li>
+              <a
+                className="link"
+                onClick={() => {
+                  this.props.startPage('#beginnewpage_newpage?pageId=beginnewpage_newpage');
+                }}
+              >
+                使用api
+              </a>
+            </li>
           </ul>
         </div>
       </React.Fragment>

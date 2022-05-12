@@ -1,6 +1,6 @@
-import Media from "../util/media";
-import CtMobile from "@ctmobile/react";
-import Router from "../util/Router";
+import Media from '../util/media';
+import CtMobile from '@ctmobile/react';
+import Router from '../util/Router';
 import DB from '../util/DB';
 
 /**
@@ -9,9 +9,12 @@ import DB from '../util/DB';
  */
 function createNoteTable() {
   return new Promise((resolve, reject) => {
-    DB.executeUpdate("create table note (id varchar(50),createTime varchar(50),info text,title varchar(50))", () => {
-      resolve();
-    });
+    DB.executeUpdate(
+      'create table note (id varchar(50),createTime varchar(50),info text,title varchar(50))',
+      () => {
+        resolve();
+      },
+    );
   });
 }
 
@@ -22,9 +25,12 @@ function createNoteTable() {
 function createAttachTable() {
   return new Promise((resolve, reject) => {
     //id,noteId,createTime,base64,type,duration,fullPath
-    DB.executeUpdate("create table attach (id varchar(50),noteId varchar(50),createTime varchar(50),base64 text,fullPath varchar(100),duration INTERGER,type varchar(50) )", () => {
-      resolve();
-    });
+    DB.executeUpdate(
+      'create table attach (id varchar(50),noteId varchar(50),createTime varchar(50),base64 text,fullPath varchar(100),duration INTERGER,type varchar(50) )',
+      () => {
+        resolve();
+      },
+    );
   });
 }
 
@@ -38,16 +44,18 @@ class App {
 
   initTable() {
     return new Promise((resolve, reject) => {
-      const createable = localStorage.getItem("createtable");
+      const createable = localStorage.getItem('createtable');
       if (createable) {
         resolve();
       } else {
-        Promise.all([createNoteTable(), createAttachTable()]).then(() => {
-          localStorage.setItem('createtable', 'createtable');
-          resolve();
-        }).catch((error) => {
-          reject(error);
-        });
+        Promise.all([createNoteTable(), createAttachTable()])
+          .then(() => {
+            localStorage.setItem('createtable', 'createtable');
+            resolve();
+          })
+          .catch((error) => {
+            reject(error);
+          });
       }
     });
   }

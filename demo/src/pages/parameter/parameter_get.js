@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CtMobile from "@ctmobile/react";
+import CtMobile from '@ctmobile/react';
 
-const {Link, Back} = CtMobile;
+const { Link, Back } = CtMobile;
 
 export default class extends CtMobile.Page.WrappedPage {
   constructor(props) {
@@ -16,7 +16,7 @@ export default class extends CtMobile.Page.WrappedPage {
    * @param {Object} e
    */
   pageCreate(e) {
-    const $pageContentJO = this.props.parent.getPageJO().find(" .ct-content");
+    const $pageContentJO = this.props.parent.getPageJO().find(' .ct-content');
     const parameter = this.props.ctmobile.getParameter();
     $pageContentJO.text(JSON.stringify(parameter));
   }
@@ -115,12 +115,10 @@ export default class extends CtMobile.Page.WrappedPage {
     return (
       <React.Fragment>
         <header>
-          <Back className="ct-back-icon"/>
+          <Back className="ct-back-icon" />
           <p className="ct-header-title">parameter_get</p>
         </header>
-        <div className="ct-content" style={{top: '3rem', bottom: 0}}>
-
-        </div>
+        <div className="ct-content" style={{ top: '3rem', bottom: 0 }}></div>
       </React.Fragment>
     );
   }

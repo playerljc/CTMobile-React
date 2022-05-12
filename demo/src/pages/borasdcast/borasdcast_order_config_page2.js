@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CtMobile from "@ctmobile/react";
+import CtMobile from '@ctmobile/react';
 
-const {Link, Back} = CtMobile;
+const { Link, Back } = CtMobile;
 
 export default class extends CtMobile.Page.WrappedPage {
   constructor(props) {
@@ -127,22 +127,33 @@ export default class extends CtMobile.Page.WrappedPage {
     return (
       <React.Fragment>
         <header>
-          <Back className="ct-back-icon"/>
+          <Back className="ct-back-icon" />
           <p className="ct-header-title">borasdcast_order_config_page2</p>
         </header>
-        <div className="ct-content" style={{top: '3rem', bottom: 0}}>
+        <div className="ct-content" style={{ top: '3rem', bottom: 0 }}>
           <ul>
-            <li><Link className="link" pageId="borasdcast_order_config_page3">borasdcast_order_config_page3</Link></li>
-            <li><a className="link" onClick={() => {
-              this.props.ctmobile.sendOrderedBroadcast({
-                action: 'borasdcast_order_config',
-                categorys: [],
-                bundle: {
-                  a: 3,
-                  b: 4
-                }
-              });
-            }}>通知</a></li>
+            <li>
+              <Link className="link" pageId="borasdcast_order_config_page3">
+                borasdcast_order_config_page3
+              </Link>
+            </li>
+            <li>
+              <a
+                className="link"
+                onClick={() => {
+                  this.props.ctmobile.sendOrderedBroadcast({
+                    action: 'borasdcast_order_config',
+                    categorys: [],
+                    bundle: {
+                      a: 3,
+                      b: 4,
+                    },
+                  });
+                }}
+              >
+                通知
+              </a>
+            </li>
           </ul>
         </div>
       </React.Fragment>

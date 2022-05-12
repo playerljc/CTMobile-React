@@ -3,8 +3,6 @@ import './index.less';
 
 export default class extends React.Component {
   render() {
-    return (
-      <div className="fa fa-plus flbtn" onClick={this.props.onClick}/>
-    );
+    return <div className="fa fa-plus flbtn" onClick={this.props.onClick} />;
   }
 }

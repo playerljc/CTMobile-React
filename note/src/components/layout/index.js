@@ -6,4 +6,4 @@ import AppBack from './back';
 
 import './index.less';
 
-export {AppLayout, AppHeader, AppContent, AppFooter, AppBack};
+export { AppLayout, AppHeader, AppContent, AppFooter, AppBack };

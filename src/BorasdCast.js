@@ -15,8 +15,8 @@ function getReceiverByIntent(intent) {
     let receiver = this.receiverModel[i];
     if (
       receiver.action === intent.action &&
-      receiver.categorys.length === intent.categorys.length) {
-
+      receiver.categorys.length === intent.categorys.length
+    ) {
       let flag = true;
       for (let j = 0; j < intent.categorys.length; j++) {
         if (receiver.categorys.indexOf(intent.categorys[j]) === -1) {
@@ -27,7 +27,7 @@ function getReceiverByIntent(intent) {
       if (flag) {
         receivers.push(receiver);
       }
-    }// end if
+    } // end if
   }
   return receivers;
 }
@@ -38,7 +38,6 @@ function getReceiverByIntent(intent) {
  * @classdesc 用户管理通知相关的操作
  */
 class BorasdCast {
-
   /**
    * BorasdCastConstructor
    * @constructor
@@ -96,7 +95,7 @@ class BorasdCast {
       categorys: intentFilter.categorys || [],
       handler,
       priority: intentFilter.priority || 0,
-      context
+      context,
     });
   }
 
@@ -152,7 +151,7 @@ class BorasdCast {
       receivers = [].concat(receivers);
       for (let i = 0, len = receivers.length; i < len; i++) {
         if (receivers[i].handler) {
-          receivers[i].handler.call(receivers[i].context,Object.assign({}, intent));
+          receivers[i].handler.call(receivers[i].context, Object.assign({}, intent));
         }
       }
     }
@@ -173,7 +172,7 @@ class BorasdCast {
     const args = {
       action: intent.action,
       categorys: intent.categorys || [],
-      bundles: []
+      bundles: [],
     };
 
     if (intent) {
@@ -233,7 +232,7 @@ class BorasdCast {
               }
               args.bundles.push(bundle);
             }
-          }
+          },
         });
       }
     }

@@ -44,11 +44,15 @@
 
     <section>
         <article><p>english | <a href="https://github.com/playerljc/CTMobile-React/blob/master/README_zh-CN.md" title="简体中文">简体中文</a></p>
-<h2>CtMobile-React</h2><p>&ensp;&ensp;A mobile framework that supports multiple forms of page switching, page transitions, page values, notifications, etc., for developing single page applications (SPA), hybrid development (Hybrid), Cordova development, CtMobile-React is in <a href="https://github.com/playerljc/CTMobile" title="click to understand CtMobile">&quot; CtMobile&quot;</a>, plus support for <a href="https://reactjs.org/" title="click to learn React">React</a> .</p>
-<h2>Development inspiration</h2><p>&ensp;&ensp; When I first came into contact with Hybrid development, the company chose jQueryMobile+Cordova to develop hybrid applications. When using jQueryMobile, I encountered many problems. For example, management class and Dom are not well integrated. Together, the original idea was that if each partial page on the browser side and its management class can be just like the Activity in Android, so the inspiration comes, and the implementation of CtMobile is completely realized by the Activity in Android.</p>
-<h2>Three concepts</h2><p>&ensp;&ensp;CtMoble has three important feelings, namely <strong>Page</strong>, <strong>Router</strong>, <strong>BorasdCast</strong>.
+<h2>CtMobile-React</h2>
+<p>  A mobile framework that supports multiple forms of page switching, page transitions, page values, notifications, etc., for developing single page applications (SPA), hybrid development (Hybrid), Cordova development, CtMobile-React is in <a href="https://github.com/playerljc/CTMobile" title="click to understand CtMobile">&quot; CtMobile&quot;</a>, plus support for <a href="https://reactjs.org/" title="click to learn React">React</a> .</p>
+<h2>Development inspiration</h2>
+<p>   When I first came into contact with Hybrid development, the company chose jQueryMobile+Cordova to develop hybrid applications. When using jQueryMobile, I encountered many problems. For example, management class and Dom are not well integrated. Together, the original idea was that if each partial page on the browser side and its management class can be just like the Activity in Android, so the inspiration comes, and the implementation of CtMobile is completely realized by the Activity in Android.</p>
+<h2>Three concepts</h2>
+<p>  CtMoble has three important feelings, namely <strong>Page</strong>, <strong>Router</strong>, <strong>BorasdCast</strong>.
 Page is used to manage the entire life cycle of page creation, initialization, and destruction. Router manages the routing jump of this framework. BorassdCast is used to manage the communication interaction between the notification and the data between the pages.</p>
-<h2>Page startup mode</h2><ol>
+<h2>Page startup mode</h2>
+<ol>
 <li>standard
 Multiple case mode</li>
 <li>single
@@ -57,12 +61,13 @@ Singleton mode (destroyed when clicked back)</li>
 Complete singleton mode (will not be destroyed at any time)</li>
 <li>result
 With a return value (you can bring back the return value to the parent page)</li>
-<li><p>singleInstanceResult
-A complete singleton with a return value (will not be destroyed, can bring back the return value to the parent page)</p>
-<h2>Page transition effect</h2><p>Switch between pages to support multiple effects</p>
-</li>
-<li><p>Slideleft-From right to left(overlay)</p>
-</li>
+<li>singleInstanceResult
+A complete singleton with a return value (will not be destroyed, can bring back the return value to the parent page)</li>
+</ol>
+<h2>Page transition effect</h2>
+<p>Switch between pages to support multiple effects</p>
+<ol>
+<li>Slideleft-From right to left(overlay)</li>
 <li>slideright-From left to right(overlay)</li>
 <li>slideup-From bottom to top(overlay)</li>
 <li>slidedown-From top to bottom(overlay)</li>
@@ -74,16 +79,25 @@ A complete singleton with a return value (will not be destroyed, can bring back 
 <li>pushslideright-From left to right(push)</li>
 <li>pushslideup-From bottom to top(push)</li>
 <li>pushslidedown-From top to bottom(push)</li>
-<li>material-Android Material style<h2>Other functions</h2></li>
+<li>material-Android Material style</li>
+</ol>
+<h2>Other functions</h2>
+<ol>
 <li>Passing values between pages</li>
 <li>Whether the new page adds a history stack</li>
 <li>Function can be called through configuration and api</li>
 </ol>
-<h2>installation</h2><p>Need to rely on react and react-dom, the packaging tool used does not limit webpack, gulp...</p>
+<h2>installation</h2>
+<p>Need to rely on react and react-dom, the packaging tool used does not limit webpack, gulp...</p>
 <pre class="prettyprint source lang-bash"><code>$ npm install react --save
 $ npm install react-dom --save
-$ npm install @ctmobile/react --save</code></pre><h2>API documentation</h2><p><a href="https://playerljc.github.io/ctmobile-react/index.html">docs</a></p>
-<h2>Quick start</h2><h2><strong>1. Initialize the application</strong></h2><pre class="prettyprint source lang-js"><code>import CtMobile from '@ctmobile/react';
+$ npm install @ctmobile/react --save
+</code></pre>
+<h2>API documentation</h2>
+<p><a href="https://playerljc.github.io/ctmobile-react/index.html">docs</a></p>
+<h2>Quick start</h2>
+<h2><strong>1. Initialize the application</strong></h2>
+<pre class="prettyprint source lang-js"><code>import CtMobile from '@ctmobile/react';
 const Router = {
     index: {
       component: import(/* webpackChunkName: &quot;index&quot; */ &quot;../pages/index&quot;),
@@ -99,14 +113,21 @@ const App = CtMobile.CtMobileFactory.create({
     supportCordova: false,
     linkCaptureReload: false,
     router: Router,
-});</code></pre><p>&ensp;Detailed parameter explanation please refer to<a href="#attribute-configuration">Attribute configuration</a>。</p>
-<h2><strong>2. Router</strong></h2><p>&ensp;&ensp;In the code to initialize the application, you need to configure the router option. The router is an object. The object's key uniquely identifies a page. The value is an object. There are two attributes, component and config.</p>
+});
+</code></pre>
+<p> Detailed parameter explanation please refer to<a href="#attribute-configuration">Attribute configuration</a>。</p>
+<h2><strong>2. Router</strong></h2>
+<p>  In the code to initialize the application, you need to configure the router option. The router is an object. The object's key uniquely identifies a page. The value is an object. There are two attributes, component and config.</p>
 <ul>
-<li><p>component
+<li>
+<p>component
 Returns a Promise object representing the logical processing class of this page. The object returned in Promise should be a subclass of the Page.WrappedPage class. Page.WrappedPage inherits React.Component。
 When developing with Webpack, it can be defined as</p>
-<pre class="prettyprint source lang-js"><code>component: import(/* webpackChunkName: &quot;about&quot; */ &quot;../pages/about&quot;)</code></pre></li>
-<li><p>config</p>
+<pre class="prettyprint source lang-js"><code>component: import(/* webpackChunkName: &quot;about&quot; */ &quot;../pages/about&quot;)
+</code></pre>
+</li>
+<li>
+<p>config</p>
 <ul>
 <li>transition: {string} - Excessive type</li>
 <li>mode: {string} - Startup type</li>
@@ -116,7 +137,8 @@ When developing with Webpack, it can be defined as</p>
 </ul>
 </li>
 </ul>
-<h2><strong>3. Write the page corresponding to the page</strong></h2><pre class="prettyprint source lang-js"><code>import React from 'react';
+<h2><strong>3. Write the page corresponding to the page</strong></h2>
+<pre class="prettyprint source lang-js"><code>import React from 'react';
 import CtMobile from '@ctmobile/react';
 
 export default class extends CtMobile.Page.WrappedPage {
@@ -152,45 +174,70 @@ export default class extends CtMobile.Page.WrappedPage {
         &lt;/React.Fragment>
       );
     }
-}</code></pre><p>&ensp;&ensp;Write a class that inherits from the Page.WrappedPage class to complete a page definition. It should be noted that the render method only needs to return the local component, because the upper layer of the Page class has been wrapped with a layer.</p>
-<pre class="prettyprint source lang-html"><code>&lt;div data-ct-data-role=&quot;page&quot;>&lt;/div></code></pre><p>The top-level container, also need to pay attention to the componentDidMount method, the Page.WrappedPage class has registered the componentDidMount method, so the custom Page class needs to manually call the parent class's componentDidMount in the componentDidMount method.</p>
+}
+</code></pre>
+<p>  Write a class that inherits from the Page.WrappedPage class to complete a page definition. It should be noted that the render method only needs to return the local component, because the upper layer of the Page class has been wrapped with a layer.</p>
+<pre class="prettyprint source lang-html"><code>&lt;div data-ct-data-role=&quot;page&quot;>&lt;/div>
+</code></pre>
+<p>The top-level container, also need to pay attention to the componentDidMount method, the Page.WrappedPage class has registered the componentDidMount method, so the custom Page class needs to manually call the parent class's componentDidMount in the componentDidMount method.</p>
 <pre class="prettyprint source lang-js"><code>componentDidMount() {
     super.componentDidMount(...arguments);
-}</code></pre><p>&ensp;&ensp;Among them pageCreate, pageShow and pageBeforeDestory are the life cycle functions of Page, more life cycle functions please refer to<a href="#8-page-life-cycle">Page life cycle</a></p>
-<h2><strong>4. Jump to a new page</strong></h2><p>&ensp;There are two ways to jump to a new page.</p>
+}
+</code></pre>
+<p>  Among them pageCreate, pageShow and pageBeforeDestory are the life cycle functions of Page, more life cycle functions please refer to<a href="#8-page-life-cycle">Page life cycle</a></p>
+<h2><strong>4. Jump to a new page</strong></h2>
+<p> There are two ways to jump to a new page.</p>
 <ul>
-<li>Label method
-<code>`</code>js
-import React from 'react';
+<li>Label method</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>import React from 'react';
 import CtMobile from '@ctmobile/react';
-const {Link, Back} = CtMobile;</li>
-</ul>
-<p><Link pageId="info">Jump to the info page</Link></p>
-<pre class="prettyprint source"><code>&ensp;&ensp;Using the pageId attribute in the Link tag, you can jump to a new page where the value of pageId is the key in Router.
+const {Link, Back} = CtMobile;
 
-* api mode
-Use the App.startPage method to jump to a new page, where the App object is the return value after initializing the application. If it is in the Page class, it can be obtained by this.props.ctmobile.
-```js
-this.props.ctmobile.startPage(&quot;#info?pageId=info&quot;);</code></pre><h2><strong>5. Passing parameters between pages</strong></h2><ul>
-<li>string mode<ul>
-<li>use the parameter attribute<pre class="prettyprint source lang-js"><code>&lt;Link pageId=&quot;about&quot; parameter=&quot;&a=1&b=2&quot;/></code></pre></li>
-<li>use api mode<pre class="prettyprint source lang-js"><code>this.props.ctmobile.startPage(&quot;#info?pageId=info&a=1&b=2&quot;);</code></pre></li>
+&lt;Link pageId=&quot;info&quot;>Jump to the info page&lt;/Link>
+</code></pre>
+<p>  Using the pageId attribute in the Link tag, you can jump to a new page where the value of pageId is the key in Router.</p>
+<ul>
+<li>api mode
+Use the App.startPage method to jump to a new page, where the App object is the return value after initializing the application. If it is in the Page class, it can be obtained by this.props.ctmobile.</li>
 </ul>
+<pre class="prettyprint source lang-js"><code>this.props.ctmobile.startPage(&quot;#info?pageId=info&quot;);
+</code></pre>
+<h2><strong>5. Passing parameters between pages</strong></h2>
+<ul>
+<li>
+<p>string mode</p>
+<ul>
+<li>use the parameter attribute</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>&lt;Link pageId=&quot;about&quot; parameter=&quot;&a=1&b=2&quot;/>
+</code></pre>
+<ul>
+<li>use api mode</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>this.props.ctmobile.startPage(&quot;#info?pageId=info&a=1&b=2&quot;);
+</code></pre>
 </li>
-<li><p>memory mode
-&ensp;&ensp;By calling the setRequest method of the Page class to pass parameters, calling the getRequest method of the Page class on the target page to get the parameters. The advantage of using the memory method is that any data type data can be passed between pages. The disadvantage is that if the page is directly refreshed, Will save the last data, unlike the string method, you can permanently retain the value of the parameter.</p>
-<p> A.js</p>
-<pre class="prettyprint source lang-js"><code> &lt;!-- Pass parameters to B.html -->
- this.props.parent.setRequest('requestCode',{a:1,b:2});
- this.props.ctmobile.startPage(&quot;#b?pageId=b&quot;);</code></pre><p> B.js</p>
-<pre class="prettyprint source lang-js"><code> pageAfterShow() {
-     &lt;!-- Get the parameters passed by A.html -->
-     const parameter = JSON.stringify(this.props.parent.getRequest());
-     console.log('parameter',parameter);
-  }</code></pre><p>&ensp;&ensp;Note that you need to call the getRequest method in the callback of pageAfterShow. As long as the pageAfterShow function is called, you can get the parameters by calling the getRequest method anywhere.</p>
+<li>
+<p>memory mode
+  By calling the setRequest method of the Page class to pass parameters, calling the getRequest method of the Page class on the target page to get the parameters. The advantage of using the memory method is that any data type data can be passed between pages. The disadvantage is that if the page is directly refreshed, Will save the last data, unlike the string method, you can permanently retain the value of the parameter.</p>
+<p>A.js</p>
+<pre class="prettyprint source lang-js"><code>&lt;!-- Pass parameters to B.html -->
+this.props.parent.setRequest('requestCode',{a:1,b:2});
+this.props.ctmobile.startPage(&quot;#b?pageId=b&quot;);
+</code></pre>
+<p>B.js</p>
+<pre class="prettyprint source lang-js"><code>pageAfterShow() {
+    &lt;!-- Get the parameters passed by A.html -->
+    const parameter = JSON.stringify(this.props.parent.getRequest());
+    console.log('parameter',parameter);
+ }
+</code></pre>
 </li>
 </ul>
-<h2><strong>6. Page with return value</strong></h2><p>&ensp;&ensp; Add mode: &quot;result&quot; or mode: &quot;singleInstanceResult&quot; attribute to the router's config</p>
+<p>  Note that you need to call the getRequest method in the callback of pageAfterShow. As long as the pageAfterShow function is called, you can get the parameters by calling the getRequest method anywhere.</p>
+<h2><strong>6. Page with return value</strong></h2>
+<p>   Add mode: &quot;result&quot; or mode: &quot;singleInstanceResult&quot; attribute to the router's config</p>
 <pre class="prettyprint source lang-js"><code>const Router = {
     PopUpDialog:{
         component: import(/* webpackChunkName: &quot;index&quot; */ &quot;../pages/PopUpDialog&quot;),
@@ -202,8 +249,10 @@ this.props.ctmobile.startPage(&quot;#info?pageId=info&quot;);</code></pre><h2><s
             */
         }
     }
-};</code></pre><p>&ensp;&ensp;For example, there are currently two pages index.jsx, PopUpDialog.jsx two pages. There is an eject button in index.jsx, click the button to pop up the PopUpDialog page.</p>
-<p>&ensp;&ensp;Index.js definition</p>
+};
+</code></pre>
+<p>  For example, there are currently two pages index.jsx, PopUpDialog.jsx two pages. There is an eject button in index.jsx, click the button to pop up the PopUpDialog page.</p>
+<p>  Index.js definition</p>
 <pre class="prettyprint source lang-js"><code>import React from 'react';
 import CtMobile from '@ctmobile/react';
 
@@ -236,7 +285,9 @@ export default class extends CtMobile.Page.WrappedPage {
         &lt;/React.Fragment>
     );
   }
-}</code></pre><p>&ensp;&ensp;Definition of PopUpDialog.js</p>
+}
+</code></pre>
+<p>  Definition of PopUpDialog.js</p>
 <pre class="prettyprint source lang-js"><code>import React from 'react';
 import CtMobile from '@ctmobile/react';
 
@@ -255,8 +306,10 @@ export default class extends CtMobile.Page.WrappedPage {
         &lt;/React.Fragment>
     );
   }
-}</code></pre><p>&ensp;&ensp;Index.js overrides the pageResult method. This method is triggered after PopUpDialog returns or manually calls the finish method. The pageResult has three parameters e, resultCode, bundle, where resultCode is used to distinguish different sources, and the bundle is the value brought back.
-&ensp;&ensp;PopUpDialog.js calls the this.props.parent.setResult(resultCode,bundle); method to set the returned value, and the page closes after calling the this.props.parent.over(); method.</p>
+}
+</code></pre>
+<p>  Index.js overrides the pageResult method. This method is triggered after PopUpDialog returns or manually calls the finish method. The pageResult has three parameters e, resultCode, bundle, where resultCode is used to distinguish different sources, and the bundle is the value brought back.
+  PopUpDialog.js calls the this.props.parent.setResult(resultCode,bundle); method to set the returned value, and the page closes after calling the this.props.parent.over(); method.</p>
 <p>The page usage scenarios with return values are generally divided into two types.</p>
 <ul>
 <li>Many to one
@@ -266,36 +319,42 @@ A.jsx pops up b.jsx, c.jsx, d.jsx...</li>
 </ul>
 <p>In the case of many-to-one, the flag of the parent page can be passed through the setRequest method.</p>
 <p>In the case of one-to-many, different sources can be distinguished by the requestCode of the pageResult method.</p>
-<h2><strong>7. Page startup mode</strong></h2><p>Set the mode attribute value in the config of the Router. The framework supports a total of 5 startup modes.</p>
+<h2><strong>7. Page startup mode</strong></h2>
+<p>Set the mode attribute value in the config of the Router. The framework supports a total of 5 startup modes.</p>
 <ul>
-<li><p>standard（default）
-&ensp;&ensp;Multiple case mode</p>
-<p>&ensp;&ensp;The multi-instance mode will create a new instance when the configuration or api jumps to this page. The so-called new instance is that the Page class corresponding to Dom and Dom will be new.</p>
-</li>
-<li><p>single
-&ensp;&ensp;Singleton mode (destroyed when clicked back)</p>
-<p>&ensp;&ensp;Like Single in Android, for example, add the following page development order:
+<li>standard（default）
+  Multiple case mode</li>
+</ul>
+<p>  The multi-instance mode will create a new instance when the configuration or api jumps to this page. The so-called new instance is that the Page class corresponding to Dom and Dom will be new.</p>
+<ul>
+<li>single
+  Singleton mode (destroyed when clicked back)</li>
+</ul>
+<p>  Like Single in Android, for example, add the following page development order:
 index.jsx -&gt; a.jsx -&gt; b.jsx -&gt; c.jsx -&gt; d.jsx -&gt; b.jsx
 If the mode of b.jsx is set to single, then after executing the above page order, the history stack is currently index.jsx -&gt; a.jsx -&gt; b.jsx
 c.jsx and d.jsx are also deleted, and the deleted colleague also calls the corresponding lifecycle function.
 But if you click back in b.jsx then b.jsx will still be destroyed.</p>
-</li>
-<li><p>singleInstance
-&ensp;&ensp;Complete singleton mode (will not be destroyed at any time)</p>
-<p>&ensp;&ensp;A complete singleton is never destroyed at all times and only one instance exists.</p>
-</li>
-<li><p>result
-&ensp;&ensp;With a return value (you can bring back the return value to the parent page)</p>
-<p>&ensp;&ensp;<a href="#6-page-with-return-value">Page with return value</a></p>
-</li>
-<li><p>singleInstanceResult
-&ensp;&ensp;A complete singleton with a return value (will not be destroyed, can bring back the return value to the parent page)</p>
-<p>&ensp;&ensp;Just like result, only instances will not be destroyed.</p>
-</li>
+<ul>
+<li>singleInstance
+  Complete singleton mode (will not be destroyed at any time)</li>
 </ul>
-<h2><strong>8. Page life cycle</strong></h2><p>Page 1 has a total of 10 life cycle functions</p>
-<p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<img src="https://github.com/playerljc/CTMobile/raw/master/outimages/pagelife.png" alt="" title="Page life cycle"></p>
-<h2><strong>9. Page transition effect</strong></h2><p>Set the transition attribute value in the config of the Router. The framework supports a total of 13 pages of excessive effects.</p>
+<p>  A complete singleton is never destroyed at all times and only one instance exists.</p>
+<ul>
+<li>result
+  With a return value (you can bring back the return value to the parent page)</li>
+</ul>
+<p>  <a href="#6-page-with-return-value">Page with return value</a></p>
+<ul>
+<li>singleInstanceResult
+  A complete singleton with a return value (will not be destroyed, can bring back the return value to the parent page)</li>
+</ul>
+<p>  Just like result, only instances will not be destroyed.</p>
+<h2><strong>8. Page life cycle</strong></h2>
+<p>Page 1 has a total of 10 life cycle functions</p>
+<p>                  <img src="https://github.com/playerljc/CTMobile/raw/master/outimages/pagelife.png" alt="" title="Page life cycle"></p>
+<h2><strong>9. Page transition effect</strong></h2>
+<p>Set the transition attribute value in the config of the Router. The framework supports a total of 13 pages of excessive effects.</p>
 <ul>
 <li>slideleft-From right to left(overlay)</li>
 <li>slideright-From left to right(overlay)</li>
@@ -311,12 +370,12 @@ But if you click back in b.jsx then b.jsx will still be destroyed.</p>
 <li>pushslidedown-From top to bottom(push)</li>
 <li>material-Android Material style</li>
 </ul>
-<h2><strong>10. borasdcast</strong></h2><p>&ensp;&ensp;Drawing on the concept of Borsdcast in Android, it provides a series of functions for data transfer between Pages. The broadcast is divided into ordered and unordered, and broadcast can be realized through configuration and api.</p>
+<h2><strong>10. borasdcast</strong></h2>
+<p>  Drawing on the concept of Borsdcast in Android, it provides a series of functions for data transfer between Pages. The broadcast is divided into ordered and unordered, and broadcast can be realized through configuration and api.</p>
 <ul>
-<li><p>Register by configuration
+<li>Register by configuration
 Add the intentfilterAction to the Router, register the intentfilterCategorys property.
-Page rewriting pageReceiver method</p>
-<pre class="prettyprint source lang-js"><code>import React from 'react';
+Page rewriting pageReceiver method<pre class="prettyprint source lang-js"><code>import React from 'react';
 import CtMobile from '@ctmobile/react';
 export default class extends CtMobile.Page.WrappedPage {
    constructor(props){
@@ -342,9 +401,10 @@ export default class extends CtMobile.Page.WrappedPage {
          &lt;/React.Fragment>
      );
    }
-}</code></pre></li>
-<li><p>Register via api</p>
-<pre class="prettyprint source lang-js"><code>import React from 'react';
+}
+</code></pre>
+</li>
+<li>Register via api<pre class="prettyprint source lang-js"><code>import React from 'react';
 import CtMobile from '@ctmobile/react';
 export default class extends CtMobile.Page.WrappedPage {
   constructor(props){
@@ -383,73 +443,99 @@ export default class extends CtMobile.Page.WrappedPage {
      );
   }
 
-}</code></pre></li>
+}
+</code></pre>
+</li>
 <li>Sending an unordered broadcast
-Call CtMobile's sendBroadcast method in the Page class<pre class="prettyprint source lang-js"><code>this.props.ctmobile.sendBroadcast({
- action: 'actionCode',
- categorys: ['c1','c2'],
- bundle: {
-   a: 1,
-   b: 2
- }
-});</code></pre></li>
+Call CtMobile's sendBroadcast method in the Page class</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>this.props.ctmobile.sendBroadcast({
+   action: 'actionCode',
+   categorys: ['c1','c2'],
+   bundle: {
+     a: 1,
+     b: 2
+   }
+});
+</code></pre>
+<ul>
 <li>Send an orderly broadcast
-Call CtMobile's sendOrderedBroadcast method in the Page class<pre class="prettyprint source lang-js"><code>this.props.ctmobile.sendOrderedBroadcast({
- action: 'actionCode',
- categorys: ['c1','c2'],
- bundle: {
-   a: 1,
-   b: 2
- }
-});</code></pre></li>
-<li>Ordered broadcast<ul>
+Call CtMobile's sendOrderedBroadcast method in the Page class</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>this.props.ctmobile.sendOrderedBroadcast({
+   action: 'actionCode',
+   categorys: ['c1','c2'],
+   bundle: {
+     a: 1,
+     b: 2
+   }
+});
+</code></pre>
+<ul>
+<li>Ordered broadcast
+<ul>
 <li>Priority of notification
 Ordered broadcast notifications are ordered. This order is determined by the priority attribute. The larger the priority, the sooner it is notified. The smaller the later, the more notified.
-Use configuration settings priority<pre class="prettyprint source lang-js"><code>const Router = {
-index:{
-component: import(/* webpackChunkName: &quot;index&quot; */ &quot;../pages/index&quot;),
-config:{
-   intentfilterPriority:0
-}
-}
-}</code></pre>Use api registration to set priority<pre class="prettyprint source lang-js"><code>// register borasdcast
-this.props.ctmobile.registerReceiver({
-action: 'actionCode',
-priority: 0,
-categorys: ['c1','c2']
-}, this.onRegisterReceiver);</code></pre></li>
-<li>Pass parameters back and terminate delivery</li>
+Use configuration settings priority</li>
 </ul>
 </li>
 </ul>
-<p>&ensp;&ensp;There are two parameters intent and opt in the callback function of the ordered broadcast, where intent is the parameter passed by the notification, opt is an object, there are 2 methods, putExtras and next, where putExtras sets the parameters passed down, these parameters It is merged together. Only the next method is called to pass down.</p>
+<pre class="prettyprint source lang-js"><code>const Router = {
+  index:{
+    component: import(/* webpackChunkName: &quot;index&quot; */ &quot;../pages/index&quot;),
+    config:{
+        intentfilterPriority:0
+    }
+  }
+}
+</code></pre>
+<p>Use api registration to set priority</p>
+<pre class="prettyprint source lang-js"><code>// register borasdcast
+this.props.ctmobile.registerReceiver({
+   action: 'actionCode',
+   priority: 0,
+   categorys: ['c1','c2']
+}, this.onRegisterReceiver);
+</code></pre>
+<ul>
+<li>Pass parameters back and terminate delivery</li>
+</ul>
+<p>  There are two parameters intent and opt in the callback function of the ordered broadcast, where intent is the parameter passed by the notification, opt is an object, there are 2 methods, putExtras and next, where putExtras sets the parameters passed down, these parameters It is merged together. Only the next method is called to pass down.</p>
 <ul>
 <li>Classification of notifications(categorys)</li>
 </ul>
-<p>&ensp;&ensp;In addition to Action, when registering a broadcast, you can define multiple categories. Categoryes can be considered as a secondary title, which is used to define the action fine-grained.</p>
-<h2><strong>12. Other functions</strong></h2><ul>
-<li><p>Whether to increase history
-If you don't want to add a new page to the history stack, you can set the reload property to true to prevent the browser from adding history.</p>
-<pre class="prettyprint source lang-js"><code>&lt;Link pageId=&quot;a&quot; reload=&quot;true&quot;>info A&lt;/Link></code></pre><pre class="prettyprint source lang-js"><code>this.props.ctmobile.startPage('#a?pageId=a',{
- reload:true
-});</code></pre><p>For example, index.jsx -&gt; a.jsx, then only a.jsx in the history stack</p>
-</li>
-<li><p>Use Back to return the page</p>
+<p>  In addition to Action, when registering a broadcast, you can define multiple categories. Categoryes can be considered as a secondary title, which is used to define the action fine-grained.</p>
+<h2><strong>12. Other functions</strong></h2>
+<ul>
+<li>Whether to increase history
+If you don't want to add a new page to the history stack, you can set the reload property to true to prevent the browser from adding history.</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>&lt;Link pageId=&quot;a&quot; reload=&quot;true&quot;>info A&lt;/Link>
+</code></pre>
+<pre class="prettyprint source lang-js"><code>this.props.ctmobile.startPage('#a?pageId=a',{
+   reload:true
+});
+</code></pre>
+<p>For example, index.jsx -&gt; a.jsx, then only a.jsx in the history stack</p>
+<ul>
+<li>Use Back to return the page</li>
+</ul>
 <pre class="prettyprint source lang-js"><code>import React from 'react';
 import CtMobile from '@ctmobile/react';
 const {Back} = CtMobile;
 
 export default class extends CtMobile.Page.WrappedPage {
- render(){
-     return(
-         &lt;React.Fragment>
-             &lt;Back/>
-         &lt;/React.Fragment>
-     );
- }
-}</code></pre></li>
-</ul>
-<h2>Attribute configuration</h2><ul>
+   render(){
+       return(
+           &lt;React.Fragment>
+               &lt;Back/>
+           &lt;/React.Fragment>
+       );
+   }
+}
+</code></pre>
+<h2>Attribute configuration</h2>
+<ul>
 <li>Configuration of config in the router</li>
 </ul>
 <table>
@@ -568,15 +654,26 @@ export default class extends CtMobile.Page.WrappedPage {
 </tr>
 </tbody>
 </table>
-<h2>CtMobile app showcase</h2><h2>Demo program running</h2><p>&ensp;&ensp;Checkout and enter the home directory</p>
+<h2>CtMobile app showcase</h2>
+<h2>Demo program running</h2>
+<p>  Checkout and enter the home directory</p>
 <pre class="prettyprint source lang-bash"><code>$ npm install
-$ npm start</code></pre><p>&ensp;&ensp;Enter localhost:8000 in the browser to access the main page of the demo.</p>
-<h2>Note program running</h2><p>&ensp;&ensp;Note is a note-taking program written using CtMobile-React, checkout and enter the note</p>
+$ npm run devDll
+$ npm start
+</code></pre>
+<p>  Enter localhost:8000 in the browser to access the main page of the demo.</p>
+<h2>Note program running</h2>
+<p>  Note is a note-taking program written using CtMobile-React, checkout and enter the note</p>
 <pre class="prettyprint source lang-bash"><code>$ npm install
-$ npm start</code></pre><p>Enter localhost:8001 on your browser to access the main page of the demo.</p>
+$ npm run devDll
+$ npm start
+</code></pre>
+<p>Enter localhost:8001 on your browser to access the main page of the demo.</p>
 <p><img src="https://github.com/playerljc/CTMobile-React/blob/master/outimages/note/note-index.png" alt="" title="note"></p>
-<h2>Discussion group</h2><p><img src="https://github.com/playerljc/CTMobile/raw/master/outimages/qq.png" alt="" title="Discussion group"></p>
-<h2>LICENSE</h2><p><a href="/LICENSE">MIT</a></p></article>
+<h2>Discussion group</h2>
+<p><img src="https://github.com/playerljc/CTMobile/raw/master/outimages/qq.png" alt="" title="Discussion group"></p>
+<h2>LICENSE</h2>
+<p><a href="/LICENSE">MIT</a></p></article>
     </section>
 
 
@@ -593,7 +690,7 @@ $ npm start</code></pre><p>Enter localhost:8001 on your browser to access the ma
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Nov 23 2018 16:13:15 GMT+0800 (中国标准时间)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed May 11 2022 11:01:10 GMT+0800 (GMT+08:00)
 </footer>
 
 <script> prettyPrint(); </script>

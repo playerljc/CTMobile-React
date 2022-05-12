@@ -31,12 +31,12 @@
  * Router.js
  */
 
-import $ from "jquery";
+import $ from 'jquery';
 import React from 'react';
 import PropTypes from 'prop-types';
-import CtMobileFactory from "./CtMobile";
-import Constant from "./Constant";
-import {Consumer} from "./GlobalContext";
+import CtMobileFactory from './CtMobile';
+import Constant from './Constant';
+import { Consumer } from './GlobalContext';
 
 /**
  * 初始化
@@ -50,12 +50,12 @@ function initial() {
   /***
    * 注册hashchange事件
    */
-  window.addEventListener("hashchange", onHashchange, false);
+  window.addEventListener('hashchange', onHashchange, false);
 
   /***
    * 注册页面转场事件
    */
-  $(window.document).on("pageBeforeChange", function (e, params) {
+  $(window.document).on('pageBeforeChange', function (e, params) {
     self.setParameter(params);
   });
 }
@@ -85,14 +85,12 @@ function hashChange(hash, option) {
    * 转场的id(没有重复)
    * @type {string}
    */
-  let id = "";
+  let id = '';
 
   if (hash) {
-    id = hash.indexOf("?") !== -1
-      ? hash.substring(1, hash.indexOf("?"))
-      : hash.substring(1);
+    id = hash.indexOf('?') !== -1 ? hash.substring(1, hash.indexOf('?')) : hash.substring(1);
 
-    const index = id.lastIndexOf("_");
+    const index = id.lastIndexOf('_');
     /***
      * 用户自定义的锚点跳转
      */
@@ -106,20 +104,24 @@ function hashChange(hash, option) {
       if (!window.document.querySelector("[data-ct-data-role='page'],#" + pageId)) {
         return false;
       }
-      self.ctmobile.fireEvent(window.document, "pageBeforeChange", [CtMobileFactory.getUrlParam(hash)]);
+      self.ctmobile.fireEvent(window.document, 'pageBeforeChange', [
+        CtMobileFactory.getUrlParam(hash),
+      ]);
     }
-  }
+  } else {
   /***
    * 首页
    */
-  else {
-    self.ctmobile.fireEvent(window.document, "pageBeforeChange", [CtMobileFactory.getUrlParam(hash)]);
-    if (/*如果栈顶元素的pageId == 模板中第一页的id*/
-    self.ctmobile.getFirstPage().getPageId() === self.ctmobile.getFirstPageId()) {
+    self.ctmobile.fireEvent(window.document, 'pageBeforeChange', [
+      CtMobileFactory.getUrlParam(hash),
+    ]);
+    if (
+      /*如果栈顶元素的pageId == 模板中第一页的id*/
+      self.ctmobile.getFirstPage().getPageId() === self.ctmobile.getFirstPageId()
+    ) {
       // 说明是从模板的第一页进入主应用的
       id = self.ctmobile.getFirstPage().getId();
-    }
-    else {
+    } else {
       // 不是从模板的第一页进入主应用的
       self.ctmobile.createPage(self.ctmobile.getId(self.ctmobile.getFirstPageId()), (Component) => {
         Component.start(Constant._SLIDEDURATION, () => {
@@ -152,11 +154,10 @@ function hashChange(hash, option) {
         }
       });
     });
-  }
+  } else {
   /***
    * 回退
    */
-  else {
     //  如果刷新的是栈顶的页面
     if (id === self.getLastPage().getId()) {
       return false;
@@ -181,8 +182,8 @@ function hashChange(hash, option) {
  * @return {number}
  */
 function indexOfHistoryByPageId(pageId) {
-  if (pageId.indexOf("?") !== -1) {
-    pageId = pageId.substring(0, pageId.indexOf("?"));
+  if (pageId.indexOf('?') !== -1) {
+    pageId = pageId.substring(0, pageId.indexOf('?'));
   }
 
   let index = -1;
@@ -202,7 +203,7 @@ function indexOfHistoryByPageId(pageId) {
  */
 class Link extends React.Component {
   render() {
-    const {className = '', style = {}} = this.props;
+    const { className = '', style = {} } = this.props;
     return (
       &lt;Consumer>
         {(ctmobile) => {
@@ -211,12 +212,19 @@ class Link extends React.Component {
               className={className}
               style={style}
               onClick={() => {
-                const {pageId = '', parameter = '', reload = ctmobile.config.linkCaptureReload} = this.props;
-                const href = `${"#" + pageId}?pageId=${pageId}${parameter}`;
+                const {
+                  pageId = '',
+                  parameter = '',
+                  reload = ctmobile.config.linkCaptureReload,
+                } = this.props;
+                const href = `${'#' + pageId}?pageId=${pageId}${parameter}`;
                 ctmobile.router.startPage(href, {
                   reload,
                 });
-              }}>{this.props.children}&lt;/a>
+              }}
+            >
+              {this.props.children}
+            &lt;/a>
           );
         }}
       &lt;/Consumer>
@@ -237,7 +245,7 @@ Link.propTypes = {
   style: PropTypes.object,
   pageId: PropTypes.string,
   parameter: PropTypes.string,
-  reload: PropTypes.bool
+  reload: PropTypes.bool,
 };
 
 /**
@@ -247,7 +255,7 @@ Link.propTypes = {
  */
 class Back extends React.Component {
   render() {
-    const {className = '', style = {}} = this.props;
+    const { className = '', style = {} } = this.props;
     return (
       &lt;Consumer>
         {(ctmobile) => {
@@ -257,10 +265,12 @@ class Back extends React.Component {
               style={style}
               onClick={() => {
                 ctmobile.router.go(-1);
-              }}>{this.props.children}&lt;/a>
+              }}
+            >
+              {this.props.children}
+            &lt;/a>
           );
         }}
-
       &lt;/Consumer>
     );
   }
@@ -276,7 +286,7 @@ Back.propTypes = {
   style: PropTypes.object,
 };
 
-export {Link, Back};
+export { Link, Back };
 
 /**
  *  Router
@@ -298,7 +308,6 @@ class Router {
     initial.call(this);
   }
 
-
   /**
    * 页面跳转
    * @param {string} href (pageId = pageId + params) 如: page1?a=1&amp;b=2;
@@ -309,10 +318,11 @@ class Router {
   startPage(href, option) {
     const self = this;
 
-    let pageId = "", paramsQuery = "";
+    let pageId = '',
+      paramsQuery = '';
 
     // Ajax加载
-    if (href.indexOf("#") !== 0) {
+    if (href.indexOf('#') !== 0) {
       let params = CtMobileFactory.getUrlParam(href);
       pageId = params.pageId;
 
@@ -320,19 +330,19 @@ class Router {
       let paramsQueryArr = [];
       for (let p in params) {
         if (params.hasOwnProperty(p)) {
-          paramsQueryArr.push(p + "=" + params[p]);
+          paramsQueryArr.push(p + '=' + params[p]);
         }
       }
-      paramsQuery = paramsQueryArr.join("&amp;") ? ("?" + paramsQueryArr.join("&amp;")) : "";
+      paramsQuery = paramsQueryArr.join('&amp;') ? '?' + paramsQueryArr.join('&amp;') : '';
 
       dispatcher();
     }
     // 本地锚点加载
     else {
       href = href.substring(1);
-      if (href.indexOf("?") !== -1) {
-        paramsQuery = href.substring(href.indexOf("?"));
-        pageId = href.substring(0, href.indexOf("?"));
+      if (href.indexOf('?') !== -1) {
+        paramsQuery = href.substring(href.indexOf('?'));
+        pageId = href.substring(0, href.indexOf('?'));
       } else {
         pageId = href;
       }
@@ -349,12 +359,15 @@ class Router {
       const mode = self.ctmobile.getPageConfigAttribute(pageId, 'mode');
       let hash;
       //if(/*单例*/mode === "single" || /*完全单例*/mode === "singleInstance" || /*带返回值的完全单例*/mode === "singleInstanceResult") {
-      if (mode.toLowerCase().indexOf("single") !== -1) {
+      if (mode.toLowerCase().indexOf('single') !== -1) {
         const index = indexOfHistoryByPageId.call(self, pageId);
-        if (/*_history中没有以pageId开头的page*/index === -1) {
+        if (/*_history中没有以pageId开头的page*/ index === -1) {
           //1.用pageId生成真实的id转换锚点
           //if("singleInstance" === mode || "singleInstanceResult" === mode) {
-          if (mode/*.toLowerCase()*/.indexOf("singleInstance") !== -1) {
+          if (
+            mode /*.toLowerCase()*/
+              .indexOf('singleInstance') !== -1
+          ) {
             if (self.ctmobile.getSingleInstance(pageId)) {
               hash = self.ctmobile.getSingleInstance(pageId).getId();
             } else {
@@ -365,30 +378,31 @@ class Router {
           }
 
           if (option &amp;&amp; option.reload) {
-            window.history.replaceState(null, "", "#" + hash);
-            hashChange.call(self, "#" + hash, option);
+            window.history.replaceState(null, '', '#' + hash);
+            hashChange.call(self, '#' + hash, option);
           } else {
-            window.location.hash = "#" + hash;
+            window.location.hash = '#' + hash;
           }
         } else {
-          if (/*如果page不是栈顶,依次出栈,调用finish*/
-          self.ctmobile.getPageByIndex(index) !== self.getLastPage()
+          if (
+            /*如果page不是栈顶,依次出栈,调用finish*/
+            self.ctmobile.getPageByIndex(index) !== self.getLastPage()
           ) {
             // 假如现在_history中的顺序是1,2,3,4,5,6，3是单例，现在要跳转到3,那么6,5,4所代表的page依次调用finish方法
             // history.go(找到3相对于当前页的阈值)
             self.go(-(self.getHistoryLength() - 1 - index));
           } else {
-            self.ctmobile.fireEvent(self.getLastPage().getPageDOM(), "pageShow");
+            self.ctmobile.fireEvent(self.getLastPage().getPageDOM(), 'pageShow');
           }
         }
-      } else if (/*多例*/mode === "standard" || mode === "result") {
+      } else if (/*多例*/ mode === 'standard' || mode === 'result') {
         //1.用pageId生成真实的id转换锚点
         hash = self.ctmobile.getId(pageId + paramsQuery);
         if (option &amp;&amp; option.reload) {
-          window.history.replaceState(null, "", "#" + hash);
-          hashChange.call(self, "#" + hash, option);
+          window.history.replaceState(null, '', '#' + hash);
+          hashChange.call(self, '#' + hash, option);
         } else {
-          window.location.hash = "#" + hash;
+          window.location.hash = '#' + hash;
         }
       }
     }
@@ -425,7 +439,7 @@ class Router {
    */
   getParameter() {
     let parameter = Object.assign({}, this.parameter);
-    if(parameter.pageId) {
+    if (parameter.pageId) {
       delete parameter.pageId;
     }
     return parameter;
@@ -496,7 +510,8 @@ class Router {
   }
 }
 
-export default Router;</code></pre>
+export default Router;
+</code></pre>
         </article>
     </section>
 
@@ -512,7 +527,7 @@ export default Router;</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Nov 23 2018 16:13:15 GMT+0800 (中国标准时间)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed May 11 2022 11:01:10 GMT+0800 (GMT+08:00)
 </footer>
 
 <script> prettyPrint(); </script>

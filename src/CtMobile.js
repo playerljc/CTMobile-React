@@ -6,10 +6,10 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from "jquery";
-import Page from "./Page";
-import Router from "./Router";
-import BorasdCast from "./BorasdCast";
+import $ from 'jquery';
+import Page from './Page';
+import Router from './Router';
+import BorasdCast from './BorasdCast';
 
 /**
  * 页面载入完成后,支持Promise
@@ -33,7 +33,7 @@ function readyPromise() {
  */
 function DOMContentLoadedPromise() {
   return new Promise((resolve) => {
-    window.addEventListener("DOMContentLoaded", () => {
+    window.addEventListener('DOMContentLoaded', () => {
       resolve();
     });
   });
@@ -47,7 +47,7 @@ function DOMContentLoadedPromise() {
  */
 function devicereadyPromise() {
   return new Promise((resolve) => {
-    window.document.addEventListener("deviceready", () => {
+    window.document.addEventListener('deviceready', () => {
       resolve();
     });
   });
@@ -73,11 +73,11 @@ function fireEvent(dom, type, params = []) {
  */
 function createPage(id, callback) {
   return new Promise((resolve, reject) => {
-    const pageId = id.substring(0, id.lastIndexOf("_"));
+    const pageId = id.substring(0, id.lastIndexOf('_'));
 
     const ctDataMode = this.getPageConfigAttribute(pageId, 'mode');
     const singleInstance = this.getSingleInstance(pageId);
-    if (ctDataMode.toLowerCase().indexOf("singleinstance") !== -1 && singleInstance) {
+    if (ctDataMode.toLowerCase().indexOf('singleinstance') !== -1 && singleInstance) {
       if (callback) {
         callback(singleInstance);
       }
@@ -88,18 +88,19 @@ function createPage(id, callback) {
       if (pageRouterConfig) {
         // 路由中配置的ReactComponent
         const component = pageRouterConfig.component;
-        if (component && component.then) {
-          component.then((ReactComponentWrap) => {
+
+        (component.then || new Promise((resolve1) => resolve1(component)))
+          .then((ReactComponentWrap) => {
             if (ReactComponentWrap) {
               // 每个页的逻辑组件
-              ReactComponent = ReactComponentWrap.default;
+              ReactComponent = ReactComponentWrap.default || ReactComponentWrap;
               // 顶层容器
               const el = $(`<div data-ct-data-role="page"></div>`)[0];
               document.body.appendChild(el);
               // 包装逻辑组件
               const WrappedComponent = Page.create(el)(ReactComponent);
-              // 包装逻辑组件放入顶层容器
-              ReactDOM.render(
+
+              let wrappedComponentIns = (
                 <WrappedComponent
                   ctmobile={this}
                   id={id}
@@ -108,26 +109,28 @@ function createPage(id, callback) {
                   // componentDidMount后的操作
                   callback={callback}
                 />
-                ,
-                el,
-                () => {
-                  resolve();
-                }
               );
+
+              // 对page进行包装
+              if (this.config.getPageWrap && this.config.getPageWrap instanceof Function) {
+                wrappedComponentIns = this.config.getPageWrap(wrappedComponentIns);
+              }
+
+              // 包装逻辑组件放入顶层容器
+              ReactDOM.render(wrappedComponentIns, el, () => {
+                resolve();
+              });
             } else {
               reject();
             }
-          }).catch((error) => {
+          })
+          .catch((error) => {
             reject(error);
           });
-        } else {
-          reject();
-        }
       } else {
         reject();
       }
     }
-
   });
 }
 
@@ -160,49 +163,55 @@ function onReady() {
    */
   this.maskDOM = $(
     "<div class='ct-page-mask'>" +
-    " <div opt='animation' class='la-ball-circus la-dark' style='color:#3e98f0;'>" +
-    "   <div></div>" +
-    "   <div></div>" +
-    "   <div></div>" +
-    "   <div></div>" +
-    "   <div></div>" +
-    " </div>" +
-    "</div>")[0];
+      " <div opt='animation' class='la-ball-circus la-dark' style='color:#3e98f0;'>" +
+      '   <div></div>' +
+      '   <div></div>' +
+      '   <div></div>' +
+      '   <div></div>' +
+      '   <div></div>' +
+      ' </div>' +
+      '</div>',
+  )[0];
   this.bodyDOM.appendChild(this.maskDOM);
 
-  fireEvent(window.document, "pageBeforeChange", [CtMobileFactory.getUrlParam(window.location.hash)]);
+  fireEvent(window.document, 'pageBeforeChange', [
+    CtMobileFactory.getUrlParam(window.location.hash),
+  ]);
   /***
    * 初始化第一页
    * TODO:初始化第一页
    */
   createPage.call(this, this.getFirstId(), (Component) => {
     Component.start(0, () => {
-        /***
-         * if(有hash值) 加载的不是首页而是某一个指定的页面 {
-         *   调用startPage即可
-         *   startPage需要三部分值
-         *   1.html的路径
-         *   2.pageId
-         *   3.parameter
-         * }
-         */
-        const hash = window.location.hash;
-        if (!hash) return false;
+      /***
+       * if(有hash值) 加载的不是首页而是某一个指定的页面 {
+       *   调用startPage即可
+       *   startPage需要三部分值
+       *   1.html的路径
+       *   2.pageId
+       *   3.parameter
+       * }
+       */
+      const hash = window.location.hash;
+      if (!hash) return false;
 
-        const pageId = self.getPageIdByHash();
-        if (!pageId) return false;
+      const pageId = self.getPageIdByHash();
+      if (!pageId) return false;
 
-        const url = `#${pageId}`;
-        const parameter = self.getParameterByHash();
-        const searchObj = CtMobileFactory.getUrlParam(`${url}${parameter}`);
+      const url = `#${pageId}`;
+      const parameter = self.getParameterByHash();
+      const searchObj = CtMobileFactory.getUrlParam(`${url}${parameter}`);
 
-        self.startPage(`${url}${parameter}${parameter ? (searchObj.pageId ? '' : `&pageId=${pageId}`) : `?pageId=${pageId}`}`, {
-          reload: self.config.linkCaptureReload
-        });
-      }
-    );
+      self.startPage(
+        `${url}${parameter}${
+          parameter ? (searchObj.pageId ? '' : `&pageId=${pageId}`) : `?pageId=${pageId}`
+        }`,
+        {
+          reload: self.config.linkCaptureReload,
+        },
+      );
+    });
   });
-
 }
 
 /**
@@ -210,7 +219,7 @@ function onReady() {
  * @access private
  */
 function init() {
-  const {supportCordova = false} = this.config;
+  const { supportCordova = false } = this.config;
 
   onReady = onReady.bind(this);
 
@@ -221,18 +230,13 @@ function init() {
     /***
      * 如果开启了对cordova的支持，那么页面完成事件和cordova的deviceReady事件必须同时完成后才能支持后续代码
      */
-    Promise.all([
-      readyPromise(),
-      DOMContentLoadedPromise(),
-      devicereadyPromise()
-    ]).then(() => {
-      onReady();
-      fireEvent(window.document, "DOMContentAndDeviceReady");
-    }).catch((error) => {
-
-    });
-  }
-  else {
+    Promise.all([readyPromise(), DOMContentLoadedPromise(), devicereadyPromise()])
+      .then(() => {
+        onReady();
+        fireEvent(window.document, 'DOMContentAndDeviceReady');
+      })
+      .catch((error) => {});
+  } else {
     /***
      * 页面载入完成事件
      */
@@ -241,7 +245,7 @@ function init() {
     /***
      * 自动 init
      */
-    window.addEventListener("DOMContentLoaded", onReady);
+    window.addEventListener('DOMContentLoaded', onReady);
   }
 }
 
@@ -270,6 +274,7 @@ class CtMobile {
    *        }
    *      }
    *   }
+   *   getPageWrap: (page: JSX.Element) => JSX.Element
    */
   constructor(config) {
     this.config = config;
@@ -372,13 +377,13 @@ class CtMobile {
    * @return {string}
    */
   getId(pageId) {
-    let id = "";
+    let id = '';
 
-    const index = pageId.indexOf("?");
+    const index = pageId.indexOf('?');
     if (index !== -1) {
-      id = pageId.substring(0, index) + "_" + new Date().getTime() + pageId.substring(index);
+      id = pageId.substring(0, index) + '_' + new Date().getTime() + pageId.substring(index);
     } else {
-      id = pageId + "_" + new Date().getTime();
+      id = pageId + '_' + new Date().getTime();
     }
     return id;
   }
@@ -390,13 +395,13 @@ class CtMobile {
    */
   getPageIdByHash() {
     let hash = window.location.hash;
-    if (!hash) return "";
+    if (!hash) return '';
 
-    if (hash.indexOf("?") !== -1) {
-      hash = hash.substring(0, hash.lastIndexOf("?"));
-      return hash.substring(1, hash.lastIndexOf("_"));
+    if (hash.indexOf('?') !== -1) {
+      hash = hash.substring(0, hash.lastIndexOf('?'));
+      return hash.substring(1, hash.lastIndexOf('_'));
     } else {
-      return hash.substring(1, hash.lastIndexOf("_"));
+      return hash.substring(1, hash.lastIndexOf('_'));
     }
   }
 
@@ -406,12 +411,12 @@ class CtMobile {
    */
   getParameterByHash() {
     let hash = window.location.hash;
-    if (!hash) return "";
+    if (!hash) return '';
 
-    if (hash.indexOf("?") !== -1) {
-      return hash.substring(hash.lastIndexOf("?"));
+    if (hash.indexOf('?') !== -1) {
+      return hash.substring(hash.lastIndexOf('?'));
     } else {
-      return "";
+      return '';
     }
   }
 
@@ -507,7 +512,7 @@ class CtMobile {
    * @return {Object}
    */
   getParameter() {
-    return this.router.getParameter();//$.extend({}, _parameter);
+    return this.router.getParameter(); //$.extend({}, _parameter);
   }
 
   /**
@@ -541,10 +546,10 @@ class CtMobile {
    * @params {Object} intentFilter -
    * {
    *    el: HtmlElement
-	 *    action:[string] action
-	 *    priority:[number] 优先级
-	 *    categorys:[array] 分类
-	 * }
+   *    action:[string] action
+   *    priority:[number] 优先级
+   *    categorys:[array] 分类
+   * }
    * @params {Function} handler - receiver执行的handler
    * @params {Object} context - 调用handler的上下文
    */
@@ -581,10 +586,10 @@ class CtMobile {
    * 发送无序广播
    * @param {Object} intent -
    * {
-	 *    action:[string] action
-	 *    categorys:[array] 分类
-	 *    bundle:Object 参数
-	 * }
+   *    action:[string] action
+   *    categorys:[array] 分类
+   *    bundle:Object 参数
+   * }
    */
   sendBroadcast(intent) {
     this.borasdcast.sendBroadcast(intent);
@@ -594,17 +599,15 @@ class CtMobile {
    * 发送有序广播
    * @param {Object} intent -
    * {
-	 *    action:[string] action
-	 *    categorys:[array] 分类
-	 *    bundle:Object 参数
-	 * }
+   *    action:[string] action
+   *    categorys:[array] 分类
+   *    bundle:Object 参数
+   * }
    */
   sendOrderedBroadcast(intent) {
     this.borasdcast.sendOrderedBroadcast(intent);
   }
-
 }
-
 
 /**
  * CtMobileFactory
@@ -637,7 +640,7 @@ const CtMobileFactory = {
    */
   create(config) {
     return new CtMobile(config);
-  }
+  },
 };
 
 export default CtMobileFactory;

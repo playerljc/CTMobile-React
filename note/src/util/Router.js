@@ -1,18 +1,18 @@
 export default {
   index: {
-    component: import(/* webpackChunkName: "index" */ "../pages/index"),
+    component: import(/* webpackChunkName: "index" */ '../pages/index'),
   },
   saveorupdate: {
-    component: import(/* webpackChunkName: "index" */ "../pages/saveorupdate"),
+    component: import(/* webpackChunkName: "index" */ '../pages/saveorupdate'),
     config: {
       transition: 'pushslideright',
-      mode: 'result'
-    }
+      mode: 'result',
+    },
   },
   notepad: {
-    component: import(/* webpackChunkName: "index" */ "../pages/notepad"),
+    component: import(/* webpackChunkName: "index" */ '../pages/notepad'),
     config: {
       transition: 'wxslideright',
-    }
-  }
+    },
+  },
 };

@@ -14,14 +14,14 @@ module.exports = merge(common, {
     historyApiFallback: true,
     overlay: true, //浏览器全屏显示错误信息
   },
-  plugins:[
+  plugins: [
     new webpack.DefinePlugin({
-      'process': {
-        'env': {
-          'NODE_ENV': JSON.stringify('development'),
-          'REAP_PATH': JSON.stringify(process.env.REAP_PATH)
-        }
-      }
+      process: {
+        env: {
+          NODE_ENV: JSON.stringify('development'),
+          REAP_PATH: JSON.stringify(process.env.REAP_PATH),
+        },
+      },
     }),
-  ]
+  ],
 });

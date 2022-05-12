@@ -1,23 +1,22 @@
 import React from 'react';
-import CtMobile from "@ctmobile/react";
-import {AppLayout, AppHeader, AppContent, AppBack} from '../../components/layout';
+import CtMobile from '@ctmobile/react';
+import { AppLayout, AppHeader, AppContent, AppBack } from '../../components/layout';
 import DAO from '../../util/DAO';
 import './index.less';
 
 export default class extends CtMobile.Page.WrappedPage {
-
   constructor(props) {
     super(props);
     this.state = {
-      count: 0
-    }
+      count: 0,
+    };
   }
 
   pageCreate() {
     DAO.count().then((data) => {
       this.setState({
-        count: data.rows[0].count
-      })
+        count: data.rows[0].count,
+      });
     });
   }
 
@@ -27,15 +26,17 @@ export default class extends CtMobile.Page.WrappedPage {
         <AppLayout className="notepad">
           <AppHeader>
             <div className="TextBack">
-              <AppBack/>
+              <AppBack />
               <span className="text">便签夹</span>
             </div>
           </AppHeader>
           <AppContent className="notepadContent">
             <ul>
-              <li onClick={() => {
-                this.props.parent.over();
-              }}>
+              <li
+                onClick={() => {
+                  this.props.parent.over();
+                }}
+              >
                 <span>...&nbsp;随手记</span>
                 <span>{this.state.count}</span>
               </li>
@@ -45,4 +46,4 @@ export default class extends CtMobile.Page.WrappedPage {
       </React.Fragment>
     );
   }
-};
+}
