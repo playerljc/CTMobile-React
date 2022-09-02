@@ -4,11 +4,7 @@ import CtMobile from '@ctmobile/react';
 
 const { Link, Back } = CtMobile;
 
-export default class extends CtMobile.Page.WrappedPage {
-  constructor(props) {
-    super(props);
-  }
-
+export default class extends React.Component {
   /**
    * 页面创建调用
    * @callback

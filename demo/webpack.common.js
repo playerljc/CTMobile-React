@@ -143,9 +143,9 @@ module.exports = {
       },
     ],
   },
-  // resolve: {
-  //   alias: {
-  //     '@ctmobile/react': path.resolve(__dirname,'src/ctmobile-react/'),
-  //   }
-  // }
+  resolve: {
+    alias: {
+      '@ctmobile/react': path.resolve(__dirname, 'src/ctmobile-react/'),
+    },
+  },
 };

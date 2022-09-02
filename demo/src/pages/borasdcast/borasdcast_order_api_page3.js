@@ -4,7 +4,7 @@ import CtMobile from '@ctmobile/react';
 
 const { Link, Back } = CtMobile;
 
-export default class extends CtMobile.Page.WrappedPage {
+export default class extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -19,7 +19,7 @@ export default class extends CtMobile.Page.WrappedPage {
     this.onRegisterReceiver = this.onRegisterReceiver.bind(this);
 
     // 注册borasdcast
-    this.props.ctmobile.registerReceiver(
+    this.props.ctMobile.registerReceiver(
       {
         el: this.props.parent.getPageDOM(),
         action: 'borasdcast_order_api',
@@ -141,7 +141,7 @@ export default class extends CtMobile.Page.WrappedPage {
               <a
                 className="link"
                 onClick={() => {
-                  this.props.ctmobile.sendOrderedBroadcast({
+                  this.props.ctMobile.sendOrderedBroadcast({
                     action: 'borasdcast_order_api',
                     categorys: [],
                     bundle: {

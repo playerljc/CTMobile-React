@@ -1,6 +1,6 @@
 /***
  * Created by lzq on 2018/11/02
- * BorasdCast.js
+ * BroadCast.js
  */
 
 /**
@@ -33,13 +33,13 @@ function getReceiverByIntent(intent) {
 }
 
 /**
- * BorasdCast 广播
- * @class BorasdCast
+ * BroadCast 广播
+ * @class BroadCast
  * @classdesc 用户管理通知相关的操作
  */
-class BorasdCast {
+class BroadCast {
   /**
-   * BorasdCastConstructor
+   * BroadCastConstructor
    * @constructor
    */
   constructor() {
@@ -239,4 +239,4 @@ class BorasdCast {
   }
 }
 
-export default BorasdCast;
+export default BroadCast;

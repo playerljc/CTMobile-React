@@ -4,7 +4,7 @@ import CtMobile from '@ctmobile/react';
 
 const { Link, Back } = CtMobile;
 
-export default class extends CtMobile.Page.WrappedPage {
+export default class extends React.Component {
   constructor(props) {
     super(props);
   }

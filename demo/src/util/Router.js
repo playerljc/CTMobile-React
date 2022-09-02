@@ -361,20 +361,18 @@ export default {
   common: {
     component: import(/* webpackChunkName: "common" */ '../pages/common'),
   },
-
-  /*,
-  info: {
-    component: import(/!* webpackChunkName: "info" *!/ "../pages/info"),
-    config: {
-      mode: 'single',
-      transition: 'slideleft'
-    }
-  },
+  // info: {
+  //   component: import(/* webpackChunkName: "info" */ '../pages/info'),
+  //   config: {
+  //     mode: 'single',
+  //     transition: 'slideleft',
+  //   },
+  // },
   about: {
-    component: import(/!* webpackChunkName: "about" *!/ "../pages/about"),
-    config: {
-      mode: 'singleInstance',
-      transition: 'wxslideleft'
-    }
-  },*/
+    component: import(/* webpackChunkName: "about" */ '../pages/about'),
+    // config: {
+    //   mode: 'singleInstance',
+    //   transition: 'wxslideleft',
+    // },
+  },
 };

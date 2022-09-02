@@ -4,7 +4,7 @@ import CtMobile from '@ctmobile/react';
 
 const { Link, Back } = CtMobile;
 
-export default class extends CtMobile.Page.WrappedPage {
+export default class extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -128,7 +128,7 @@ export default class extends CtMobile.Page.WrappedPage {
                 className="link"
                 onClick={() => {
                   this.props.parent.setRequest(this.props.parent.getPageId(), { a: 1, b: 2 });
-                  this.props.ctmobile.startPage('#parameter_arm?pageId=parameter_arm');
+                  this.props.ctMobile.startPage('#parameter_arm?pageId=parameter_arm');
                 }}
               >
                 parameter_arm
