@@ -357,7 +357,6 @@ export default {
       intentfilterPriority: 2,
     },
   },
-
   common: {
     component: import(/* webpackChunkName: "common" */ '../pages/common'),
   },
