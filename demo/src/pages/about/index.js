@@ -128,7 +128,7 @@ function About(props) {
 
 export default About;
 
-// export default class extends React.Component {
+// export default (props) => {
 //   constructor(props) {
 //     super(props);
 //   }
@@ -233,9 +233,9 @@ export default About;
 //     console.log('about', 'pageBeforeDestroy');
 //   }
 //
-//   render() {
+//
 //     return (
-//       <React.Fragment>
+//       <>
 //         <header>
 //           <Back className="ct-back-icon" />
 //           <p className="ct-header-title">about</p>
@@ -243,8 +243,8 @@ export default About;
 //         <div className="ct-content" style={{ top: '3rem', bottom: 0 }}>
 //           <ul>
 //             {/*<li><a onClick={() => {*/}
-//             {/*this.props.parent.setResult('about', {a: 1, b: 2});*/}
-//             {/*this.props.parent.over();*/}
+//             {/*props.parent.setResult('about', {a: 1, b: 2});*/}
+//             {/*props.parent.over();*/}
 //             {/*}}>关闭</a></li>*/}
 //             <li>
 //               <Link className="link" pageId="info">
@@ -253,7 +253,7 @@ export default About;
 //             </li>
 //           </ul>
 //         </div>
-//       </React.Fragment>
+//       </>
 //     );
 //   }
 // }

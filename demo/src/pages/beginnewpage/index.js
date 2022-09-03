@@ -124,7 +124,7 @@ export default (props) => {
             <a
               className="link"
               onClick={() => {
-                props.ctmobile.startPage('#beginnewpage_newpage?pageId=beginnewpage_newpage');
+                props.ctMobile.startPage('#beginnewpage_newpage?pageId=beginnewpage_newpage');
               }}
             >
               使用api
