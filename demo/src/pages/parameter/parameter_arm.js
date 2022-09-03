@@ -2,7 +2,7 @@ import React from 'react';
 
 import CtMobile from '@ctmobile/react';
 
-const { Link, Back, usePageEffect } = CtMobile;
+const { Back, usePageEffect } = CtMobile;
 
 export default (props) => {
   usePageEffect(props.wrapRef, {
